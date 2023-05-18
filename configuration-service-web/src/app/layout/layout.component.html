@@ -1,8 +1,21 @@
 <mat-toolbar>
-  <button mat-icon-button class="example-icon" aria-label="Menu icon">
+  <button mat-icon-button class="example-icon" aria-label="Menu icon" (click)="drawer.toggle()">
     <mat-icon aria-hidden="false" fontIcon="menu"></mat-icon>
   </button>
   <span>ConfigurationService</span>
   <span class="example-spacer"></span>
   <span>Choose context TODO</span>
 </mat-toolbar>
+<div style="height: 93vh">
+<mat-drawer-container class="example-container" >
+
+  <mat-drawer #drawer class="example-sidenav" mode="side">
+    <p>TODO</p>
+  </mat-drawer>
+
+  <div class="example-sidenav-content">
+
+  </div>
+
+</mat-drawer-container>
+</div>
