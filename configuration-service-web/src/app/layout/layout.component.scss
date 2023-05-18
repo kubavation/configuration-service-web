@@ -2,12 +2,12 @@
   flex: 1 1 auto;
 }
 
-.example-container {
+.sidenav-container {
   width: 100%;
   height: 100%;
 }
 
-.example-sidenav-content {
+.content {
   display: flex;
   height: 100%;
   width: 100%;
@@ -15,7 +15,7 @@
   justify-content: center;
 }
 
-.example-sidenav {
+.sidenav {
   padding: 20px;
   height: 100%;
 }
