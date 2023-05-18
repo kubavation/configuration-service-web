@@ -20,7 +20,6 @@ import {HttpClientModule} from "@angular/common/http";
     MatIconModule,
     MatButtonModule,
     MatSidenavModule,
-    BrowserAnimationsModule,
     HttpClientModule
   ]
 })

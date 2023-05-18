@@ -4,6 +4,8 @@ import {HomeComponent} from "../home/home.component";
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
+  {path: 'contexts', loadChildren: () => import('../context/context.module').then(m => m.ContextModule)},
+  {path: '**', component: HomeComponent}
 ];
 
 @NgModule({

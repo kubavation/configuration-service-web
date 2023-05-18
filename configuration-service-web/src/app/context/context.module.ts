@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ContextListComponent } from './context-list/context-list.component';
 import {SharedModule} from "../shared/shared.module";
 import {ContextService} from "./service/context.service";
+import {ContextRoutingModule} from "./context-routing.module";
 
 
 
@@ -12,7 +13,8 @@ import {ContextService} from "./service/context.service";
   ],
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
+    ContextRoutingModule
   ],
   providers: [
     ContextService
