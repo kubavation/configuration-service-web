@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import {ContextService} from "../service/context.service";
-import {Observable} from "rxjs";
-import {Context} from "../model/context";
 
 @Component({
   selector: 'app-context-list',
@@ -9,6 +7,8 @@ import {Context} from "../model/context";
   styleUrls: ['./context-list.component.scss']
 })
 export class ContextListComponent {
+
+  contexts$ = this.contextService.contexts$;
 
   constructor(private contextService: ContextService) {}
 
