@@ -23,7 +23,7 @@ export class ContextListComponent {
 
   dataSource: MatTableDataSource<Context>;
 
-  readonly displayedColumns = ['name'];
+  readonly displayedColumns = ['position', 'name'];
 
   constructor(private contextService: ContextService) {}
 
