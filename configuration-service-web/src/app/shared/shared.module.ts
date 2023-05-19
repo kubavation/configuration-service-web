@@ -8,6 +8,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {HttpClientModule} from "@angular/common/http";
 import {MatTableModule} from "@angular/material/table";
 import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatPaginatorModule} from "@angular/material/paginator";
 
 
 
@@ -15,7 +16,14 @@ import {MatFormFieldModule} from "@angular/material/form-field";
   declarations: [],
   imports: [
     CommonModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatIconModule,
+    MatButtonModule,
+    MatSidenavModule,
+    HttpClientModule,
+    MatTableModule,
+    MatFormFieldModule,
+    MatPaginatorModule
   ],
   exports: [
     MatToolbarModule,
@@ -24,7 +32,8 @@ import {MatFormFieldModule} from "@angular/material/form-field";
     MatSidenavModule,
     HttpClientModule,
     MatTableModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatPaginatorModule
   ]
 })
 export class SharedModule { }
