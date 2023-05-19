@@ -11,6 +11,7 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatSelectModule} from "@angular/material/select";
 import {ReactiveFormsModule} from "@angular/forms";
+import {MatInputModule} from "@angular/material/input";
 
 
 
@@ -27,7 +28,8 @@ import {ReactiveFormsModule} from "@angular/forms";
     MatFormFieldModule,
     MatPaginatorModule,
     MatSelectModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatInputModule
   ],
   exports: [
     MatToolbarModule,
@@ -39,7 +41,8 @@ import {ReactiveFormsModule} from "@angular/forms";
     MatFormFieldModule,
     MatPaginatorModule,
     MatSelectModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatInputModule
   ]
 })
 export class SharedModule { }

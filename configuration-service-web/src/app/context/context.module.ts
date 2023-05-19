@@ -5,8 +5,6 @@ import {SharedModule} from "../shared/shared.module";
 import {ContextService} from "./service/context.service";
 import {ContextRoutingModule} from "./context-routing.module";
 
-
-
 @NgModule({
   declarations: [
     ContextListComponent
