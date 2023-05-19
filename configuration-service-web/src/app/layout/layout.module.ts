@@ -5,6 +5,7 @@ import {SharedModule} from "../shared/shared.module";
 import {RouterOutlet} from "@angular/router";
 import {HomeComponent} from "../home/home.component";
 import {LayoutRoutingModule} from "./layout-routing.module";
+import {ContextService} from "../context/service/context.service";
 
 
 
@@ -21,6 +22,7 @@ import {LayoutRoutingModule} from "./layout-routing.module";
     LayoutRoutingModule,
     SharedModule,
     RouterOutlet
-  ]
+  ],
+  providers: [ContextService]
 })
 export class LayoutModule { }

@@ -9,6 +9,8 @@ import {HttpClientModule} from "@angular/common/http";
 import {MatTableModule} from "@angular/material/table";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatSelectModule} from "@angular/material/select";
+import {ReactiveFormsModule} from "@angular/forms";
 
 
 
@@ -23,7 +25,9 @@ import {MatPaginatorModule} from "@angular/material/paginator";
     HttpClientModule,
     MatTableModule,
     MatFormFieldModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatSelectModule,
+    ReactiveFormsModule
   ],
   exports: [
     MatToolbarModule,
@@ -33,7 +37,9 @@ import {MatPaginatorModule} from "@angular/material/paginator";
     HttpClientModule,
     MatTableModule,
     MatFormFieldModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatSelectModule,
+    ReactiveFormsModule
   ]
 })
 export class SharedModule { }

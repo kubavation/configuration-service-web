@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import {ContextService} from "../context/service/context.service";
 
 @Component({
   selector: 'app-layout',
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.scss']
 })
-export class LayoutComponent implements OnInit {
+export class LayoutComponent {
 
-  constructor() { }
+  contexts$ = this.contextService.contexts$;
 
-  ngOnInit(): void {
-  }
+  constructor(private contextService: ContextService) { }
 
 }
