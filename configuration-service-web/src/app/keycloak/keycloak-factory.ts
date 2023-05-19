@@ -8,7 +8,7 @@ export function initializeKeycloak(
       config: {
         url: 'http://localhost:8080',
         realm: 'am-realm',
-        clientId: 'configuration-service-web'
+        clientId: 'access-management-web'
       },  initOptions: {
         checkLoginIframe: false
       }
