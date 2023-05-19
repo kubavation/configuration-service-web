@@ -15,12 +15,7 @@ export class ContextListComponent {
 
   dataSource$: Observable<MatTableDataSource<Context>> = this.contextService.contexts$
     .pipe(
-      map((contexts) => {
-          this.dataSource = new MatTableDataSource<Context>(contexts);
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-          return this.dataSource;
-      })
+      map((contexts) => this.toDataSource(contexts))
     );
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -32,5 +27,11 @@ export class ContextListComponent {
 
   constructor(private contextService: ContextService) {}
 
+  private toDataSource(contexts: Context[]): MatTableDataSource<Context> {
+    this.dataSource = new MatTableDataSource<Context>(contexts);
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+    return this.dataSource;
+  }
 
 }
