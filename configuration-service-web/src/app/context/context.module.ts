@@ -14,6 +14,9 @@ import {ContextRoutingModule} from "./context-routing.module";
     SharedModule,
     ContextRoutingModule
   ],
+  exports: [
+    ContextListComponent
+  ],
   providers: [
     ContextService
   ]
