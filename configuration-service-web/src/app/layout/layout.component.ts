@@ -36,7 +36,7 @@ export class LayoutComponent implements OnDestroy {
 
   setContext(context: Context): void {
     console.log('setting ', context)
-    this.contextControl.setValue(context);
+    this.contextControl.patchValue(context);
   }
 
 }
