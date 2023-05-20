@@ -31,7 +31,7 @@ export class LayoutComponent implements OnDestroy {
   }
 
   get contextChosen(): boolean {
-    return !!this.contextControl.value;
+    return !!this.contextBsService.value();
   }
 
 }
