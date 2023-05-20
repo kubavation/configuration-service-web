@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {ContextService} from "../context/service/context.service";
+import {FormControl} from "@angular/forms";
+import {Subscription} from "rxjs";
+import {ContextBsService} from "../context/context-bs.service";
 
 @Component({
   selector: 'app-layout',
@@ -10,6 +13,15 @@ export class LayoutComponent {
 
   contexts$ = this.contextService.contexts$;
 
-  constructor(private contextService: ContextService) { }
+  contextControl = new FormControl();
+
+  private contextSubscription = new Subscription();
+
+  constructor(private contextService: ContextService,
+              private contextBsService: ContextBsService) {
+    this.contextSubscription = this.contextControl
+      .valueChanges
+      .subscribe(context => this.contextBsService.set(context));
+  }
 
 }

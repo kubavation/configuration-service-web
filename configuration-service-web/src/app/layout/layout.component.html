@@ -6,7 +6,7 @@
   <span class="example-spacer"></span>
   <mat-form-field>
     <mat-label>Choose context</mat-label>
-    <mat-select>
+    <mat-select [formControl]="contextControl">
       <mat-option *ngFor="let context of contexts$ | async" [value]="context">{{context.name}}</mat-option>
     </mat-select>
   </mat-form-field>
