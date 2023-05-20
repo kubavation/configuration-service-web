@@ -7,6 +7,7 @@ import {HomeComponent} from "../home/home.component";
 import {LayoutRoutingModule} from "./layout-routing.module";
 import {ContextService} from "../context/service/context.service";
 import {ContextModule} from "../context/context.module";
+import {ContextStorageService} from "../context/storage/context-storage.service";
 
 
 
@@ -25,6 +26,6 @@ import {ContextModule} from "../context/context.module";
     RouterOutlet,
     ContextModule
   ],
-  providers: [ContextService]
+  providers: [ContextService, ContextStorageService]
 })
 export class LayoutModule { }
