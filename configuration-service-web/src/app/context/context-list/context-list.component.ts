@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
 import {ContextService} from "../service/context.service";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
@@ -25,6 +25,10 @@ export class ContextListComponent {
 
   readonly displayedColumns = ['position', 'name'];
 
+  selected: Context | undefined;
+
+  @Output() public afterSelection = new EventEmitter<Context>();
+
   constructor(private contextService: ContextService) {}
 
   private toDataSource(contexts: Context[]): MatTableDataSource<Context> {
@@ -39,4 +43,8 @@ export class ContextListComponent {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
+  onSelect(context: Context): void {
+    this.selected = context;
+    this.afterSelection.emit(context);
+  }
 }
