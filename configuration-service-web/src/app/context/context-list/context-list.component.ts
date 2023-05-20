@@ -24,6 +24,7 @@ export class ContextListComponent {
   dataSource: MatTableDataSource<Context>;
 
   readonly displayedColumns = ['position', 'name'];
+  selected: Context | undefined;
 
   constructor(private contextService: ContextService) {}
 
@@ -39,4 +40,7 @@ export class ContextListComponent {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
+  onSelect(context: Context): void {
+    this.selected = context;
+  }
 }
