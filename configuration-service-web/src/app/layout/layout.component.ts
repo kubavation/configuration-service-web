@@ -3,6 +3,7 @@ import {ContextService} from "../context/service/context.service";
 import {FormControl} from "@angular/forms";
 import {Subscription} from "rxjs";
 import {ContextBsService} from "../context/context-bs.service";
+import {Context} from "../context/model/context";
 
 @Component({
   selector: 'app-layout',
@@ -27,6 +28,10 @@ export class LayoutComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     this.contextSubscription?.unsubscribe();
+  }
+
+  get contextChosen(): boolean {
+    return !!this.contextControl.value;
   }
 
 }

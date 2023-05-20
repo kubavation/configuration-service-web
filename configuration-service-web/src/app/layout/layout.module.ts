@@ -6,6 +6,7 @@ import {RouterOutlet} from "@angular/router";
 import {HomeComponent} from "../home/home.component";
 import {LayoutRoutingModule} from "./layout-routing.module";
 import {ContextService} from "../context/service/context.service";
+import {ContextModule} from "../context/context.module";
 
 
 
@@ -21,7 +22,8 @@ import {ContextService} from "../context/service/context.service";
     CommonModule,
     LayoutRoutingModule,
     SharedModule,
-    RouterOutlet
+    RouterOutlet,
+    ContextModule
   ],
   providers: [ContextService]
 })

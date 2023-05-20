@@ -26,8 +26,12 @@
     </div>
   </mat-drawer>
 
-  <div class="content">
+  <div class="content" *ngIf="contextChosen">
     <router-outlet></router-outlet>
+  </div>
+
+  <div class="content" *ngIf="!contextChosen">
+    <app-context-list></app-context-list>
   </div>
 
 </mat-drawer-container>
