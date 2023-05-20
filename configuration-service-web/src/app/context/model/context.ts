@@ -1,3 +1,3 @@
 export interface Context {
-  name: String
+  name: string
 }

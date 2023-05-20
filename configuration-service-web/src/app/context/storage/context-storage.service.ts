@@ -9,7 +9,7 @@ export class ContextStorageService {
   constructor() { }
 
   public store(context: Context): void {
-    sessionStorage.setItem(this.KEY, context.name.toString());
+    sessionStorage.setItem(this.KEY, context.name);
   }
 
   public storedValue(): Context | undefined {
