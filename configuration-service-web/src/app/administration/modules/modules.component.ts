@@ -23,7 +23,7 @@ export class ModulesComponent {
 
   dataSource: MatTableDataSource<Module>;
 
-  readonly displayedColumns = ['name', 'description'];
+  readonly displayedColumns = ['position', 'name', 'description'];
 
   constructor(private moduleService: ModuleService) {
   }
