@@ -34,4 +34,9 @@ export class LayoutComponent implements OnDestroy {
     return !!this.contextBsService.value();
   }
 
+  setContext(context: Context): void {
+    console.log('setting ', context)
+    this.contextControl.setValue(context);
+  }
+
 }
