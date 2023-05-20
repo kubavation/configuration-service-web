@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ModulesComponent } from './modules.component';
+import {SharedModule} from "../../shared/shared.module";
+import {ModuleService} from "./service/module.service";
 
 
 
@@ -9,7 +11,9 @@ import { ModulesComponent } from './modules.component';
     ModulesComponent
   ],
   imports: [
-    CommonModule
-  ]
+    CommonModule,
+    SharedModule
+  ],
+  providers: [ModuleService]
 })
 export class ModulesModule { }
