@@ -21,7 +21,11 @@ export class ConfigurationPatternModalComponent {
   }
 
 
-  showForm() {
-    console.log(this.form.value)
+  save(): void {
+    this.dialogRef.close(this.form.value)
+  }
+
+  cancel(): void {
+    this.dialogRef.close();
   }
 }

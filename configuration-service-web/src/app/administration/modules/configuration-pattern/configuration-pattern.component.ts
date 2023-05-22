@@ -1,7 +1,7 @@
 import {Component, ViewChild} from '@angular/core';
 import {ModuleService} from "../service/module.service";
 import {ActivatedRoute} from "@angular/router";
-import {filter, map, switchMap} from "rxjs";
+import {filter, map, switchMap, tap} from "rxjs";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {MatTableDataSource} from "@angular/material/table";
@@ -46,6 +46,10 @@ export class ConfigurationPatternComponent {
 
 
   openModal(): void {
-    this.dialog.open(ConfigurationPatternModalComponent);
+    this.dialog.open(ConfigurationPatternModalComponent)
+      .afterClosed()
+      .pipe(
+        tap(_ => console.log(_))
+      ).subscribe();
   }
 }
