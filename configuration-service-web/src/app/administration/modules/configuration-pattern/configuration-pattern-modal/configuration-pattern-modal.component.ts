@@ -1,14 +1,14 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {MatDialogRef} from "@angular/material/dialog";
-import {ConfigurationPatternComponent} from "../configuration-pattern.component";
 import {FormBuilder, Validators} from "@angular/forms";
+import {DialogComponent} from "../../../../shared/components/dialog-component";
 
 @Component({
   selector: 'app-configuration-pattern-modal',
   templateUrl: './configuration-pattern-modal.component.html',
   styleUrls: ['./configuration-pattern-modal.component.scss']
 })
-export class ConfigurationPatternModalComponent {
+export class ConfigurationPatternModalComponent extends DialogComponent<ConfigurationPatternModalComponent> {
 
   form = this.fb.group({
     name: ['', Validators.required],
@@ -16,8 +16,9 @@ export class ConfigurationPatternModalComponent {
     defaultValue: [false]
   })
 
-  constructor(public dialogRef: MatDialogRef<ConfigurationPatternComponent>,
+  constructor(public override dialogRef: MatDialogRef<ConfigurationPatternModalComponent>,
               private fb: FormBuilder) {
+    super(dialogRef);
   }
 
 
@@ -25,7 +26,4 @@ export class ConfigurationPatternModalComponent {
     this.dialogRef.close(this.form.value)
   }
 
-  cancel(): void {
-    this.dialogRef.close();
-  }
 }
