@@ -25,6 +25,8 @@ export class ModulesComponent {
 
   readonly displayedColumns = ['position', 'name', 'description'];
 
+  selected: Module | undefined;
+
   constructor(private moduleService: ModuleService) {
   }
 
@@ -34,6 +36,10 @@ export class ModulesComponent {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     return this.dataSource;
+  }
+
+  onSelect(module: Module): void {
+    this.selected = module;
   }
 
 
