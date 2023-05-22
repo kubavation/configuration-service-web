@@ -5,13 +5,15 @@ import {AdministrationRoutingModule} from "./administration-routing.module";
 import {ModulesComponent} from "./modules/modules.component";
 import {ModuleService} from "./modules/service/module.service";
 import { ConfigurationPatternComponent } from './modules/configuration-pattern/configuration-pattern.component';
+import { ConfigurationPatternModalComponent } from './modules/configuration-pattern/configuration-pattern-modal/configuration-pattern-modal.component';
 
 
 
 @NgModule({
   declarations: [
     ModulesComponent,
-    ConfigurationPatternComponent
+    ConfigurationPatternComponent,
+    ConfigurationPatternModalComponent
   ],
   imports: [
     CommonModule,
