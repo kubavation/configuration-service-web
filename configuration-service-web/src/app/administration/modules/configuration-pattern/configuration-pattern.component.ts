@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {ModuleService} from "../service/module.service";
 
 @Component({
   selector: 'app-configuration-pattern',
@@ -6,5 +7,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./configuration-pattern.component.scss']
 })
 export class ConfigurationPatternComponent {
+
+  constructor(private moduleService: ModuleService) {}
+
+
+
 
 }

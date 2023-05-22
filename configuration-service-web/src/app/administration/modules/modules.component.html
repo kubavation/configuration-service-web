@@ -1,4 +1,5 @@
 <div>
+  <button mat-raised-button routerLink="{{selected?.name}}/configuration-pattern" [disabled]="!selected">Configuration pattern</button>
   <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource$ | async" matSort>
 
