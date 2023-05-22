@@ -1,22 +1,3 @@
-table {
-  width: 80vw !important;
-}
-
-.demo-row-is-clicked {
-  font-weight: bold;
-  background-color: lightgray;
-}
-
-.mat-mdc-row .mat-mdc-cell {
-  border-bottom: 1px solid transparent;
-  border-top: 1px solid transparent;
-  cursor: pointer;
-}
-
-.mat-mdc-row:hover .mat-mdc-cell {
-  border-color: currentColor;
-  background-color: darkgrey;
-}
 
 .action-container {
   margin-top: 2vh;
