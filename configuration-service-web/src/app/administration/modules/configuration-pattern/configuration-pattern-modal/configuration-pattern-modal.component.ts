@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {MatDialogRef} from "@angular/material/dialog";
 import {ConfigurationPatternComponent} from "../configuration-pattern.component";
+import {FormBuilder, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-configuration-pattern-modal',
@@ -9,8 +10,18 @@ import {ConfigurationPatternComponent} from "../configuration-pattern.component"
 })
 export class ConfigurationPatternModalComponent {
 
-  constructor(public dialogRef: MatDialogRef<ConfigurationPatternComponent>) {
+  form = this.fb.group({
+    name: ['', Validators.required],
+    description: ['', Validators.required],
+    defaultValue: [false]
+  })
+
+  constructor(public dialogRef: MatDialogRef<ConfigurationPatternComponent>,
+              private fb: FormBuilder) {
   }
 
 
+  showForm() {
+    console.log(this.form.value)
+  }
 }
