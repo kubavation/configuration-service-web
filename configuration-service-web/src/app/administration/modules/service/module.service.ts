@@ -12,7 +12,7 @@ export class ModuleService {
 
   constructor(private http: HttpClient) { }
 
-  public configPattern(module: string): Observable<ConfigPattern[]> {
+  public configurationPatterns(module: string): Observable<ConfigPattern[]> {
     return this.http.get<ConfigPattern[]>(`${environment.url}/modules/${module}/configuration-pattern`);
   }
 
