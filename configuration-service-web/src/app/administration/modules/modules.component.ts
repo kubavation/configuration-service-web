@@ -15,7 +15,7 @@ export class ModulesComponent {
 
   dataSource$: Observable<MatTableDataSource<Module>> = this.moduleService.modules$
     .pipe(
-      map((contexts) => this.toDataSource(contexts))
+      map((modules) => this.toDataSource(modules))
     );
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
