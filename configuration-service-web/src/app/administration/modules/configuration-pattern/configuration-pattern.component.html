@@ -1,6 +1,6 @@
 <div>
   <div class="action-container">
-    <button mat-raised-button>Add</button>
+    <button mat-raised-button (click)="openModal()">Add</button>
   </div>
   <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource$ | async" matSort>

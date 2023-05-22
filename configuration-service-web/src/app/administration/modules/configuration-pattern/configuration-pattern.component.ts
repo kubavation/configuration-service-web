@@ -7,6 +7,8 @@ import {MatSort} from "@angular/material/sort";
 import {MatTableDataSource} from "@angular/material/table";
 import {Module} from "../model/module";
 import {ConfigPattern} from "../model/config-pattern";
+import {MatDialog} from "@angular/material/dialog";
+import {ConfigurationPatternModalComponent} from "./configuration-pattern-modal/configuration-pattern-modal.component";
 
 @Component({
   selector: 'app-configuration-pattern',
@@ -30,7 +32,8 @@ export class ConfigurationPatternComponent {
   readonly displayedColumns = ['position', 'name', 'description', 'defaultValue'];
 
   constructor(private moduleService: ModuleService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private dialog: MatDialog) {
 
   }
 
@@ -42,4 +45,7 @@ export class ConfigurationPatternComponent {
   }
 
 
+  openModal(): void {
+    this.dialog.open(ConfigurationPatternModalComponent);
+  }
 }

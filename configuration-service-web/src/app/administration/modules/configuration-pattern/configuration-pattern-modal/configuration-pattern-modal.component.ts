@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {MatDialogRef} from "@angular/material/dialog";
+import {ConfigurationPatternComponent} from "../configuration-pattern.component";
 
 @Component({
   selector: 'app-configuration-pattern-modal',
@@ -6,5 +8,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./configuration-pattern-modal.component.scss']
 })
 export class ConfigurationPatternModalComponent {
+
+  constructor(public dialogRef: MatDialogRef<ConfigurationPatternComponent>) {
+  }
+
 
 }
