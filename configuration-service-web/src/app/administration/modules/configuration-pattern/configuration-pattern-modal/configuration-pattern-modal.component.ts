@@ -1,7 +1,8 @@
-import {Component} from '@angular/core';
-import {MatDialogRef} from "@angular/material/dialog";
+import {Component, Inject} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {FormBuilder, Validators} from "@angular/forms";
 import {DialogComponent} from "../../../../shared/components/dialog-component";
+import {ConfigPattern} from "../../model/config-pattern";
 
 @Component({
   selector: 'app-configuration-pattern-modal',
@@ -17,6 +18,7 @@ export class ConfigurationPatternModalComponent extends DialogComponent<Configur
   })
 
   constructor(public override dialogRef: MatDialogRef<ConfigurationPatternModalComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: ConfigPattern | undefined,
               private fb: FormBuilder) {
     super(dialogRef);
   }

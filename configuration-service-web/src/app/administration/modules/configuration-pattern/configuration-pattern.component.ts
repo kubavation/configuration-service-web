@@ -51,8 +51,10 @@ export class ConfigurationPatternComponent {
   }
 
 
-  openModal(): void {
-    this.dialog.open(ConfigurationPatternModalComponent)
+  openModal(configurationPattern: ConfigPattern | undefined = null): void {
+    this.dialog.open(ConfigurationPatternModalComponent, {
+      data: configurationPattern
+    })
       .afterClosed()
       .pipe(
         filter(pattern => !!pattern),
