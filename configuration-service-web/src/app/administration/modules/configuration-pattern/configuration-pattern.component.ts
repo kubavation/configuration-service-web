@@ -81,7 +81,9 @@ export class ConfigurationPatternComponent {
   }
 
   openConfirmationModal(): void {
-    this.confirmationService.open()
+    this.confirmationService.open({
+      content: `Delete config pattern ${this.selected?.name}?`
+    })
       .afterClosed()
       .pipe(
         filter(result => !!result),
