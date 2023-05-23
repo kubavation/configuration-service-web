@@ -20,3 +20,14 @@ table {
   background-color: darkgrey;
 }
 
+
+.mat-mdc-snack-bar-container {
+  &.snackbar-success {
+    --mdc-snackbar-container-color: rgba(0, 252, 92, 0.58);
+    --mdc-snackbar-supporting-text-color: #fff;
+  }
+  &.snackbar-error {
+    --mdc-snackbar-container-color: #8B0000FF;
+    --mdc-snackbar-supporting-text-color: #fff;
+  }
+}

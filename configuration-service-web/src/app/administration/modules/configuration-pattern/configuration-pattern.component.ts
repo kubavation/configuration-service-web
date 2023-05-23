@@ -1,14 +1,14 @@
 import {Component, ViewChild} from '@angular/core';
 import {ModuleService} from "../service/module.service";
 import {ActivatedRoute} from "@angular/router";
-import {filter, map, switchMap, tap} from "rxjs";
+import {BehaviorSubject, combineLatest, filter, map, switchMap, tap, withLatestFrom} from "rxjs";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {MatTableDataSource} from "@angular/material/table";
-import {Module} from "../model/module";
 import {ConfigPattern} from "../model/config-pattern";
 import {MatDialog} from "@angular/material/dialog";
 import {ConfigurationPatternModalComponent} from "./configuration-pattern-modal/configuration-pattern-modal.component";
+import {SnackbarService} from "../../../shared/snackbar/snackbar.service";
 
 @Component({
   selector: 'app-configuration-pattern',
@@ -17,8 +17,11 @@ import {ConfigurationPatternModalComponent} from "./configuration-pattern-modal/
 })
 export class ConfigurationPatternComponent {
 
-  dataSource$ = this.route.params
+  private refreshSubject$ = new BehaviorSubject<void>(null);
+
+  dataSource$ = combineLatest([this.route.params, this.refreshSubject$])
     .pipe(
+      map(([params, _]) => params),
       filter(params => !!params['module']),
       switchMap(params => this.moduleService.configurationPatterns(params['module'])),
       map(patterns => this.toDataSource(patterns))
@@ -29,10 +32,13 @@ export class ConfigurationPatternComponent {
 
   dataSource: MatTableDataSource<ConfigPattern>;
 
+  selected: ConfigPattern | undefined;
+
   readonly displayedColumns = ['position', 'name', 'description', 'defaultValue'];
 
   constructor(private moduleService: ModuleService,
               private route: ActivatedRoute,
+              private snackbarService: SnackbarService,
               private dialog: MatDialog) {
 
   }
@@ -45,11 +51,22 @@ export class ConfigurationPatternComponent {
   }
 
 
-  openModal(): void {
-    this.dialog.open(ConfigurationPatternModalComponent)
+  openModal(configurationPattern: ConfigPattern | undefined = null): void {
+    this.dialog.open(ConfigurationPatternModalComponent, {
+      data: configurationPattern
+    })
       .afterClosed()
       .pipe(
-        tap(_ => console.log(_))
-      ).subscribe();
+        filter(pattern => !!pattern),
+        withLatestFrom(this.route.params),
+        switchMap(([pattern, params]) => this.moduleService.addConfigurationPattern(params['module'], pattern))
+      ).subscribe(_ => {
+        this.snackbarService.success("Configuration pattern successfully created.");
+        this.refreshSubject$.next();
+      }, error => this.snackbarService.error("Error while creating configuration pattern."));
+  }
+
+  onSelect(row: ConfigPattern): void {
+    this.selected = row;
   }
 }
