@@ -72,7 +72,7 @@ export class ConfigurationPatternComponent {
   }
 
   private saveConfigurationPattern(module: string, configPattern: ConfigPattern, configName: string = null): Observable<void> {
-    if (configPattern) {
+    if (configName) {
       return this.moduleService.editConfigurationPattern(module, configName, configPattern);
     }
     return this.moduleService.addConfigurationPattern(module, configPattern);
