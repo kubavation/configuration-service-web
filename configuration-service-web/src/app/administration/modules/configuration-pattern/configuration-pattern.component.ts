@@ -87,9 +87,9 @@ export class ConfigurationPatternComponent {
         switchMap(([_, params]) => this.moduleService.deleteConfigurationPattern(params['module'], this.selected?.name))
       )
       .subscribe(_ => {
-        this.snackbarService.success("Configuration pattern successfully created.");
+        this.snackbarService.success("Configuration pattern successfully deleted.");
         this.refreshSubject$.next();
-      }, error => this.snackbarService.error("Error while creating configuration pattern."));
+      }, error => this.snackbarService.error("Error while deleting configuration pattern."));
   }
 
 }
