@@ -14,6 +14,7 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {MatInputModule} from "@angular/material/input";
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import {MatSnackBarModule} from "@angular/material/snack-bar";
 
 
 
@@ -33,7 +34,8 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
     ReactiveFormsModule,
     MatInputModule,
     MatDialogModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatSnackBarModule
   ],
   exports: [
     MatToolbarModule,
@@ -48,7 +50,8 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
     ReactiveFormsModule,
     MatInputModule,
     MatDialogModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatSnackBarModule
   ]
 })
 export class SharedModule { }
