@@ -1,11 +1,10 @@
 import {Component, ViewChild} from '@angular/core';
 import {ModuleService} from "../service/module.service";
 import {ActivatedRoute} from "@angular/router";
-import {filter, map, switchMap, tap} from "rxjs";
+import {filter, map, switchMap, tap, withLatestFrom} from "rxjs";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {MatTableDataSource} from "@angular/material/table";
-import {Module} from "../model/module";
 import {ConfigPattern} from "../model/config-pattern";
 import {MatDialog} from "@angular/material/dialog";
 import {ConfigurationPatternModalComponent} from "./configuration-pattern-modal/configuration-pattern-modal.component";
@@ -49,7 +48,8 @@ export class ConfigurationPatternComponent {
     this.dialog.open(ConfigurationPatternModalComponent)
       .afterClosed()
       .pipe(
-        tap(_ => console.log(_))
+        withLatestFrom(this.route.params),
+        switchMap(([pattern, params]) => this.moduleService.addConfigurationPattern(params['module'], pattern))
       ).subscribe();
   }
 }

@@ -17,7 +17,7 @@ export class ModuleService {
   }
 
   public addConfigurationPattern(module: string, pattern: ConfigPattern): Observable<void> {
-    return this.http.patch<void>(`${environment.url}/modules/${module}/configuration-pattern`, pattern);
+    return this.http.patch<void>(`${environment.url}/modules/${module}/configuration-pattern`, [pattern]);
   }
 
 }
