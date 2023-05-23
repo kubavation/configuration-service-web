@@ -32,6 +32,7 @@ export class ConfigurationPatternComponent {
 
   dataSource: MatTableDataSource<ConfigPattern>;
 
+  selected: ConfigPattern | undefined;
 
   readonly displayedColumns = ['position', 'name', 'description', 'defaultValue'];
 
@@ -61,5 +62,9 @@ export class ConfigurationPatternComponent {
         this.snackbarService.success("Configuration pattern successfully created.");
         this.refreshSubject$.next();
       }, error => this.snackbarService.error("Error while creating configuration pattern."));
+  }
+
+  onSelect(row: ConfigPattern): void {
+    this.selected = row;
   }
 }
