@@ -3,6 +3,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {FormBuilder, Validators} from "@angular/forms";
 import {DialogComponent} from "../../../../shared/components/dialog-component";
 import {ConfigPattern} from "../../model/config-pattern";
+import {FormMode} from "../../../../shared/forms/form-mode";
 
 @Component({
   selector: 'app-configuration-pattern-modal',
@@ -23,6 +24,7 @@ export class ConfigurationPatternModalComponent extends DialogComponent<Configur
     super(dialogRef);
 
     if (data) {
+      this.mode = FormMode.EDIT;
       this.patchForm(data);
     }
 
