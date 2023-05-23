@@ -9,6 +9,7 @@ import {ConfigPattern} from "../model/config-pattern";
 import {MatDialog} from "@angular/material/dialog";
 import {ConfigurationPatternModalComponent} from "./configuration-pattern-modal/configuration-pattern-modal.component";
 import {SnackbarService} from "../../../shared/snackbar/snackbar.service";
+import {ConfirmationModalComponent} from "../../../shared/components/confirmation-modal/confirmation-modal.component";
 
 @Component({
   selector: 'app-configuration-pattern',
@@ -75,6 +76,20 @@ export class ConfigurationPatternComponent {
       return this.moduleService.editConfigurationPattern(module, configName, configPattern);
     }
     return this.moduleService.addConfigurationPattern(module, configPattern);
+  }
+
+  openConfirmationModal(): void {
+    this.dialog.open(ConfirmationModalComponent)
+      .afterClosed()
+      .pipe(
+        filter(result => !!result),
+        withLatestFrom(this.route.params),
+        switchMap(([_, params]) => this.moduleService.deleteConfigurationPattern(params['module'], this.selected?.name))
+      )
+      .subscribe(_ => {
+        this.snackbarService.success("Configuration pattern successfully created.");
+        this.refreshSubject$.next();
+      }, error => this.snackbarService.error("Error while creating configuration pattern."));
   }
 
 }
