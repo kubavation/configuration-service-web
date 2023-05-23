@@ -50,6 +50,7 @@ export class ConfigurationPatternComponent {
     this.dialog.open(ConfigurationPatternModalComponent)
       .afterClosed()
       .pipe(
+        filter(pattern => !!pattern),
         withLatestFrom(this.route.params),
         switchMap(([pattern, params]) => this.moduleService.addConfigurationPattern(params['module'], pattern))
       ).subscribe(_ => {
