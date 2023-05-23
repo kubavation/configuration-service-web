@@ -41,4 +41,8 @@ export class ConfigurationPatternModalComponent extends DialogComponent<Configur
     })
   }
 
+  get modalTitle(): string {
+    return this.mode == FormMode.ADD ? "Add configuration pattern": `Edit configuration pattern ${this.form.get('name')?.value}`;
+  }
+
 }
