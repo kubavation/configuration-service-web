@@ -21,11 +21,22 @@ export class ConfigurationPatternModalComponent extends DialogComponent<Configur
               @Inject(MAT_DIALOG_DATA) public data: ConfigPattern | undefined,
               private fb: FormBuilder) {
     super(dialogRef);
+
+    if (data) {
+      this.patchForm(data);
+    }
+
   }
 
 
   save(): void {
     this.dialogRef.close(this.form.value)
+  }
+
+  private patchForm(pattern: ConfigPattern): void {
+    this.form.patchValue({
+      ...pattern
+    })
   }
 
 }
