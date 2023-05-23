@@ -8,6 +8,7 @@ import {MatTableDataSource} from "@angular/material/table";
 import {ConfigPattern} from "../model/config-pattern";
 import {MatDialog} from "@angular/material/dialog";
 import {ConfigurationPatternModalComponent} from "./configuration-pattern-modal/configuration-pattern-modal.component";
+import {SnackbarService} from "../../../shared/snackbar/snackbar.service";
 
 @Component({
   selector: 'app-configuration-pattern',
@@ -32,6 +33,7 @@ export class ConfigurationPatternComponent {
 
   constructor(private moduleService: ModuleService,
               private route: ActivatedRoute,
+              private snackbarService: SnackbarService,
               private dialog: MatDialog) {
 
   }
@@ -50,6 +52,8 @@ export class ConfigurationPatternComponent {
       .pipe(
         withLatestFrom(this.route.params),
         switchMap(([pattern, params]) => this.moduleService.addConfigurationPattern(params['module'], pattern))
-      ).subscribe();
+      ).subscribe(_ => {
+        this.snackbarService.success("Configuration pattern successfully created.")
+      }, err => this.snackbarService.error("Error while creating configuration pattern."));
   }
 }
