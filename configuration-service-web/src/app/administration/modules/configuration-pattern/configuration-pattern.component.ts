@@ -10,6 +10,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {ConfigurationPatternModalComponent} from "./configuration-pattern-modal/configuration-pattern-modal.component";
 import {SnackbarService} from "../../../shared/snackbar/snackbar.service";
 import {ConfirmationModalComponent} from "../../../shared/components/confirmation-modal/confirmation-modal.component";
+import {ConfirmationService} from "../../../shared/components/confirmation-modal/confirmation.service";
 
 @Component({
   selector: 'app-configuration-pattern',
@@ -39,6 +40,7 @@ export class ConfigurationPatternComponent {
 
   constructor(private moduleService: ModuleService,
               private route: ActivatedRoute,
+              private confirmationService: ConfirmationService,
               private snackbarService: SnackbarService,
               private dialog: MatDialog) {
 
@@ -79,7 +81,7 @@ export class ConfigurationPatternComponent {
   }
 
   openConfirmationModal(): void {
-    this.dialog.open(ConfirmationModalComponent)
+    this.confirmationService.open()
       .afterClosed()
       .pipe(
         filter(result => !!result),
