@@ -3,6 +3,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {FormBuilder, Validators} from "@angular/forms";
 import {DialogComponent} from "../../../../shared/components/dialog-component";
 import {ConfigPattern} from "../../model/config-pattern";
+import {FormMode} from "../../../../shared/forms/form-mode";
 
 @Component({
   selector: 'app-configuration-pattern-modal',
@@ -21,11 +22,27 @@ export class ConfigurationPatternModalComponent extends DialogComponent<Configur
               @Inject(MAT_DIALOG_DATA) public data: ConfigPattern | undefined,
               private fb: FormBuilder) {
     super(dialogRef);
+
+    if (data) {
+      this.mode = FormMode.EDIT;
+      this.patchForm(data);
+    }
+
   }
 
 
   save(): void {
     this.dialogRef.close(this.form.value)
+  }
+
+  private patchForm(pattern: ConfigPattern): void {
+    this.form.patchValue({
+      ...pattern
+    })
+  }
+
+  get modalTitle(): string {
+    return this.mode == FormMode.ADD ? "Add configuration pattern": `Edit configuration pattern ${this.form.get('name')?.value}`;
   }
 
 }

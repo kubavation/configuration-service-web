@@ -15,11 +15,14 @@ import {MatInputModule} from "@angular/material/input";
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
+import { ConfirmationModalComponent } from './components/confirmation-modal/confirmation-modal.component';
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    ConfirmationModalComponent
+  ],
   imports: [
     CommonModule,
     MatToolbarModule,
