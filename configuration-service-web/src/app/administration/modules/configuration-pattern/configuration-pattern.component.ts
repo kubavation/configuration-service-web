@@ -1,7 +1,7 @@
 import {Component, ViewChild} from '@angular/core';
 import {ModuleService} from "../service/module.service";
 import {ActivatedRoute} from "@angular/router";
-import {BehaviorSubject, combineLatest, filter, map, switchMap, tap, withLatestFrom} from "rxjs";
+import {BehaviorSubject, combineLatest, filter, map, Observable, switchMap, tap, withLatestFrom} from "rxjs";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {MatTableDataSource} from "@angular/material/table";
@@ -59,7 +59,7 @@ export class ConfigurationPatternComponent {
       .pipe(
         filter(pattern => !!pattern),
         withLatestFrom(this.route.params),
-        switchMap(([pattern, params]) => this.moduleService.addConfigurationPattern(params['module'], pattern))
+        switchMap(([pattern, params]) => this.saveConfigurationPattern(params['module'], pattern, configurationPattern?.name))
       ).subscribe(_ => {
         this.snackbarService.success("Configuration pattern successfully created.");
         this.refreshSubject$.next();
@@ -69,4 +69,12 @@ export class ConfigurationPatternComponent {
   onSelect(row: ConfigPattern): void {
     this.selected = row;
   }
+
+  private saveConfigurationPattern(module: string, configPattern: ConfigPattern, configName: string = null): Observable<void> {
+    if (configPattern) {
+      return this.moduleService.editConfigurationPattern(module, configName, configPattern);
+    }
+    return this.moduleService.addConfigurationPattern(module, configPattern);
+  }
+
 }

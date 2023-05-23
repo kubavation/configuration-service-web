@@ -20,4 +20,8 @@ export class ModuleService {
     return this.http.patch<void>(`${environment.url}/modules/${module}/configuration-pattern`, [pattern]);
   }
 
+  public editConfigurationPattern(module: string, configName: string, pattern: ConfigPattern): Observable<void> {
+    return this.http.patch<void>(`${environment.url}/modules/${module}/configuration-pattern/${configName}`, [pattern]);
+  }
+
 }
