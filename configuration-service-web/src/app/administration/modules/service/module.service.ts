@@ -24,4 +24,8 @@ export class ModuleService {
     return this.http.patch<void>(`${environment.url}/modules/${module}/configuration-pattern/${configName}`, pattern);
   }
 
+  public deleteConfigurationPattern(module: string, configName: string): Observable<void> {
+    return this.http.delete<void>(`${environment.url}/modules/${module}/configuration-pattern/${configName}`);
+  }
+
 }
