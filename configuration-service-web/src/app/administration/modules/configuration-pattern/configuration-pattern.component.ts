@@ -1,7 +1,7 @@
 import {Component, ViewChild} from '@angular/core';
 import {ModuleService} from "../service/module.service";
 import {ActivatedRoute} from "@angular/router";
-import {filter, map, switchMap, tap, withLatestFrom} from "rxjs";
+import {BehaviorSubject, combineLatest, filter, map, switchMap, tap, withLatestFrom} from "rxjs";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {MatTableDataSource} from "@angular/material/table";
@@ -17,8 +17,11 @@ import {SnackbarService} from "../../../shared/snackbar/snackbar.service";
 })
 export class ConfigurationPatternComponent {
 
-  dataSource$ = this.route.params
+  private refreshSubject$ = new BehaviorSubject<void>(null);
+
+  dataSource$ = combineLatest([this.route.params, this.refreshSubject$])
     .pipe(
+      map(([params, _]) => params),
       filter(params => !!params['module']),
       switchMap(params => this.moduleService.configurationPatterns(params['module'])),
       map(patterns => this.toDataSource(patterns))
@@ -28,6 +31,7 @@ export class ConfigurationPatternComponent {
   @ViewChild(MatSort) sort: MatSort;
 
   dataSource: MatTableDataSource<ConfigPattern>;
+
 
   readonly displayedColumns = ['position', 'name', 'description', 'defaultValue'];
 
@@ -54,7 +58,8 @@ export class ConfigurationPatternComponent {
         withLatestFrom(this.route.params),
         switchMap(([pattern, params]) => this.moduleService.addConfigurationPattern(params['module'], pattern))
       ).subscribe(_ => {
-        this.snackbarService.success("Configuration pattern successfully created.")
-      }, err => this.snackbarService.error("Error while creating configuration pattern."));
+        this.snackbarService.success("Configuration pattern successfully created.");
+        this.refreshSubject$.next();
+      }, error => this.snackbarService.error("Error while creating configuration pattern."));
   }
 }
