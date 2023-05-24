@@ -56,7 +56,8 @@ export class ConfigurationPatternComponent {
 
   openModal(configurationPattern: ConfigPattern | undefined = null): void {
     this.dialog.open(ConfigurationPatternModalComponent, {
-      data: configurationPattern
+      data: configurationPattern,
+      width: '40vw'
     })
       .afterClosed()
       .pipe(

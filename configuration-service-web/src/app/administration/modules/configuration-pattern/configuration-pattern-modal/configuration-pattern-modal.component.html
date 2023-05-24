@@ -2,27 +2,26 @@
 <div mat-dialog-content>
   <div [formGroup]="form">
 
-    <div>
-      <mat-form-field>
+    <div class="w-100">
+      <mat-form-field class="w-70">
         <mat-label>Name</mat-label>
         <input formControlName="name" matInput>
       </mat-form-field>
+
+        <mat-slide-toggle
+          formControlName="defaultValue"
+          style="width: 10%; margin-left: 2vw">
+          Default value
+        </mat-slide-toggle>
     </div>
 
     <div>
-      <mat-form-field>
+      <mat-form-field class="w-100">
         <mat-label>Description</mat-label>
         <input formControlName="description" matInput>
       </mat-form-field>
     </div>
 
-    <div>
-      <mat-slide-toggle
-        formControlName="defaultValue"
-        class="example-margin">
-        Default value
-      </mat-slide-toggle>
-    </div>
 
 
   </div>
