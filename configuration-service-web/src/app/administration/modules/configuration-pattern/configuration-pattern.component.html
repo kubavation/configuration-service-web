@@ -24,8 +24,13 @@
 
       <ng-container matColumnDef="defaultValue">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Default value </th>
-        <td mat-cell *matCellDef="let row"> {{row.defaultValue}} </td>
-      </ng-container>
+        <td mat-cell *matCellDef="let row">
+          <mat-checkbox
+            [disabled]="true"
+            [checked]="row.defaultValue">
+          </mat-checkbox>
+        </td>
+      </ng-container>https://material.angular.io/components/checkbox/overview
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
 
