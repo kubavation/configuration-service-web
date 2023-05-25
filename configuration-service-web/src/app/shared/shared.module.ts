@@ -21,13 +21,15 @@ import {MatExpansionModule} from "@angular/material/expansion";
 import {ContextService} from "./context/service/context.service";
 import {ContextStorageService} from "./context/storage/context-storage.service";
 import { ContextListComponent } from './context/components/context-list/context-list.component';
+import { ContextModalComponent } from './context/components/context-modal/context-modal.component';
 
 
 
 @NgModule({
   declarations: [
     ConfirmationModalComponent,
-    ContextListComponent
+    ContextListComponent,
+    ContextModalComponent
   ],
   imports: [
     CommonModule,
