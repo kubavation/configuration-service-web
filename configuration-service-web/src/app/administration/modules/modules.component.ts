@@ -54,9 +54,17 @@ export class ModulesComponent {
     }).afterClosed()
       .pipe(
         filter(module => !!module),
-        switchMap(module => this.moduleService.addModule(module))
+        switchMap(module => this.saveModule(module, data?.name))
       ).subscribe(_ => {
           this.snackbarService.success("Module successfully created.");
         }, error => this.snackbarService.error("Error while creating module."));
   }
+
+  private saveModule(module: Module, moduleName: string = null): Observable<void> {
+    if (moduleName) {
+      return this.moduleService.editModule(moduleName, module);
+    }
+    return this.moduleService.addModule(module);
+  }
+
 }

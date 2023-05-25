@@ -16,6 +16,10 @@ export class ModuleService {
     return this.http.post<void>(`${environment.url}/modules/`, module);
   }
 
+  public editModule(moduleName: string, module: Module): Observable<void> {
+    return this.http.patch<void>(`${environment.url}/modules/${moduleName}`, module);
+  }
+
   public configurationPatterns(module: string): Observable<ConfigPattern[]> {
     return this.http.get<ConfigPattern[]>(`${environment.url}/modules/${module}/configuration-pattern`);
   }
