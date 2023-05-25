@@ -1,10 +1,10 @@
 import {Component, OnDestroy} from '@angular/core';
-import {ContextService} from "../context/service/context.service";
+import {ContextService} from "../shared/context/service/context.service";
 import {FormControl} from "@angular/forms";
 import {Subscription, tap} from "rxjs";
-import {ContextBsService} from "../context/context-bs.service";
-import {Context} from "../context/model/context";
-import {ContextStorageService} from "../context/storage/context-storage.service";
+import {Context} from "../shared/context/model/context";
+import {ContextStorageService} from "../shared/context/storage/context-storage.service";
+import {ContextBsService} from "../shared/context/service/context-bs.service";
 
 @Component({
   selector: 'app-layout',
