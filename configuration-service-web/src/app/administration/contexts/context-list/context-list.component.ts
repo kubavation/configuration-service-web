@@ -1,9 +1,9 @@
 import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
-import {ContextService} from "../service/context.service";
+import {ContextService} from "../../../shared/context/service/context.service";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
-import {Context} from "../model/context";
+import {Context} from "../../../shared/context/model/context";
 import {map, Observable} from "rxjs";
 
 @Component({

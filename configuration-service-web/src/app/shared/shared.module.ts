@@ -17,6 +17,9 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import { ConfirmationModalComponent } from './components/confirmation-modal/confirmation-modal.component';
 import {MatCheckboxModule} from "@angular/material/checkbox";
+import {MatExpansionModule} from "@angular/material/expansion";
+import {ContextService} from "./context/service/context.service";
+import {ContextStorageService} from "./context/storage/context-storage.service";
 
 
 
@@ -40,7 +43,8 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
     MatDialogModule,
     MatSlideToggleModule,
     MatSnackBarModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatExpansionModule
   ],
   exports: [
     MatToolbarModule,
@@ -57,7 +61,9 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
     MatDialogModule,
     MatSlideToggleModule,
     MatSnackBarModule,
-    MatCheckboxModule
-  ]
+    MatCheckboxModule,
+    MatExpansionModule
+  ],
+  providers: [ContextService, ContextStorageService]
 })
 export class SharedModule { }

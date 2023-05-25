@@ -4,7 +4,7 @@
   </button>
   <span>ConfigurationService</span>
   <span class="example-spacer"></span>
-  <mat-form-field>
+  <mat-form-field >
     <mat-label>Choose context</mat-label>
     <mat-select [formControl]="contextControl">
       <mat-option *ngFor="let context of contexts$ | async" [value]="context">{{context.name}}</mat-option>
@@ -15,16 +15,9 @@
 <mat-drawer-container class="sidenav-container" >
 
   <mat-drawer #drawer class="sidenav" mode="side">
-    <div>
-      <button mat-button routerLink="/contexts">Contexts</button>
-    </div>
-    <div>
-      <button mat-button routerLink="/administration/modules">Modules</button>
-    </div>
-    <div>
-      <button mat-button routerLink="/administration">Administration</button>
-    </div>
+    <app-menu></app-menu>
   </mat-drawer>
+
 
   <div class="content" *ngIf="contextChosen">
     <router-outlet></router-outlet>
@@ -36,3 +29,14 @@
 
 </mat-drawer-container>
 </div>
+
+<!--
+
+    <div>
+      <button mat-button routerLink="/contexts">Contexts</button>
+    </div>
+    <div>
+      <button mat-button routerLink="/administration/modules">Modules</button>
+    </div>
+
+-->
