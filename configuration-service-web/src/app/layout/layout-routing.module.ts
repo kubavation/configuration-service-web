@@ -4,6 +4,7 @@ import {HomeComponent} from "../home/home.component";
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
+  {path: 'modules', loadChildren: () => import('../context-modules/context-modules.module').then(m => m.ContextModulesModule)},
   {path: 'administration', loadChildren: () => import('../administration/administration.module').then(m => m.AdministrationModule)},
   {path: '**', component: HomeComponent}
 ];

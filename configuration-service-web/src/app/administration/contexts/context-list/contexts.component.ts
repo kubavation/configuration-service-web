@@ -7,11 +7,11 @@ import {Context} from "../../../shared/context/model/context";
 import {map, Observable} from "rxjs";
 
 @Component({
-  selector: 'app-context-list',
-  templateUrl: './context-list.component.html',
-  styleUrls: ['./context-list.component.scss']
+  selector: 'app-contexts',
+  templateUrl: './contexts.component.html',
+  styleUrls: ['./contexts.component.scss']
 })
-export class ContextListComponent {
+export class ContextsComponent {
 
   dataSource$: Observable<MatTableDataSource<Context>> = this.contextService.contexts$
     .pipe(

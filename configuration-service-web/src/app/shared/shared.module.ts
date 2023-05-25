@@ -20,12 +20,16 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatExpansionModule} from "@angular/material/expansion";
 import {ContextService} from "./context/service/context.service";
 import {ContextStorageService} from "./context/storage/context-storage.service";
+import { ContextListComponent } from './context/components/context-list/context-list.component';
+import { ContextModalComponent } from './context/components/context-modal/context-modal.component';
 
 
 
 @NgModule({
   declarations: [
-    ConfirmationModalComponent
+    ConfirmationModalComponent,
+    ContextListComponent,
+    ContextModalComponent
   ],
   imports: [
     CommonModule,
@@ -62,7 +66,8 @@ import {ContextStorageService} from "./context/storage/context-storage.service";
     MatSlideToggleModule,
     MatSnackBarModule,
     MatCheckboxModule,
-    MatExpansionModule
+    MatExpansionModule,
+    ContextListComponent
   ],
   providers: [ContextService, ContextStorageService]
 })
