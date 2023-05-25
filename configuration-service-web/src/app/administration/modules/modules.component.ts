@@ -48,9 +48,9 @@ export class ModulesComponent {
   }
 
 
-  openModal(module: Module | undefined = null): void {
+  openModal(data: Module | undefined = null): void {
     this.dialog.open(ModuleModalComponent, {
-      data: module
+      data: data
     }).afterClosed()
       .pipe(
         filter(module => !!module),
