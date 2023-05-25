@@ -7,6 +7,7 @@ import {ModuleService} from "./modules/service/module.service";
 import { ConfigurationPatternComponent } from './modules/configuration-pattern/configuration-pattern.component';
 import { ConfigurationPatternModalComponent } from './modules/configuration-pattern/configuration-pattern-modal/configuration-pattern-modal.component';
 import {ContextListComponent} from "./contexts/context-list/context-list.component";
+import { ModuleModalComponent } from './modules/module-modal/module-modal.component';
 
 
 
@@ -15,7 +16,8 @@ import {ContextListComponent} from "./contexts/context-list/context-list.compone
     ModulesComponent,
     ConfigurationPatternComponent,
     ConfigurationPatternModalComponent,
-    ContextListComponent
+    ContextListComponent,
+    ModuleModalComponent
   ],
   imports: [
     CommonModule,
