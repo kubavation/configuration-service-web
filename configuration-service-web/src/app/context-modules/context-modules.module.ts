@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ContextModulesComponent } from './context-modules.component';
 import {SharedModule} from "../shared/shared.module";
+import {ContextModulesRoutingModule} from "./context-modules-routing.module";
 
 
 
@@ -11,6 +12,7 @@ import {SharedModule} from "../shared/shared.module";
   ],
   imports: [
     CommonModule,
+    ContextModulesRoutingModule,
     SharedModule
   ]
 })
