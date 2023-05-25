@@ -24,7 +24,7 @@
   </div>
 
   <div class="content" *ngIf="!contextChosen">
-    <app-context-list (afterSelection)="setContext($event)"></app-context-list>
+    <app-contexts (afterSelection)="setContext($event)"></app-contexts>
   </div>
 
 </mat-drawer-container>

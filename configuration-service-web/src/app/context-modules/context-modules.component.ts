@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {ContextBsService} from "../shared/context/service/context-bs.service";
 
 @Component({
   selector: 'app-context-modules',
@@ -6,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./context-modules.component.scss']
 })
 export class ContextModulesComponent {
+
+
+  constructor(private contextBsService: ContextBsService) {
+  }
 
 }

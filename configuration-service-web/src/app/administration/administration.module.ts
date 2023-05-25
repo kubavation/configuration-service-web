@@ -6,7 +6,7 @@ import {ModulesComponent} from "./modules/modules.component";
 import {ModuleService} from "./modules/service/module.service";
 import { ConfigurationPatternComponent } from './modules/configuration-pattern/configuration-pattern.component';
 import { ConfigurationPatternModalComponent } from './modules/configuration-pattern/configuration-pattern-modal/configuration-pattern-modal.component';
-import {ContextListComponent} from "./contexts/context-list/context-list.component";
+import {ContextsComponent} from "./contexts/context-list/contexts.component";
 import { ModuleModalComponent } from './modules/module-modal/module-modal.component';
 
 
@@ -16,7 +16,7 @@ import { ModuleModalComponent } from './modules/module-modal/module-modal.compon
     ModulesComponent,
     ConfigurationPatternComponent,
     ConfigurationPatternModalComponent,
-    ContextListComponent,
+    ContextsComponent,
     ModuleModalComponent
   ],
   imports: [
@@ -25,7 +25,7 @@ import { ModuleModalComponent } from './modules/module-modal/module-modal.compon
     AdministrationRoutingModule
   ],
   exports: [
-    ContextListComponent
+    ContextsComponent
   ],
   providers: [ModuleService]
 })
