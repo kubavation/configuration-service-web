@@ -1,6 +1,6 @@
-import {Component, OnDestroy} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, OnDestroy} from '@angular/core';
 import {ContextService} from "../shared/context/service/context.service";
-import {FormControl} from "@angular/forms";
+import {FormControl, Validators} from "@angular/forms";
 import {Subscription, tap} from "rxjs";
 import {Context} from "../shared/context/model/context";
 import {ContextStorageService} from "../shared/context/storage/context-storage.service";
@@ -15,26 +15,28 @@ export class LayoutComponent implements OnDestroy {
 
   contexts$ = this.contextService.contexts$;
 
-  contextControl = new FormControl();
+  contextControl = new FormControl('', {validators: Validators.required});
 
   private contextSubscription = new Subscription();
 
   constructor(private contextService: ContextService,
               private contextStorageService: ContextStorageService,
+              private cdr: ChangeDetectorRef,
               private contextBsService: ContextBsService) {
 
     this.contextSubscription = this.contextControl
       .valueChanges
       .pipe(
-        tap(context => this.contextStorageService.store(context))
+        tap(context => this.contextStorageService.store({name: context}))
       )
-      .subscribe(context => this.contextBsService.set(context));
+      .subscribe(context => this.contextBsService.set({name: context}));
 
-    if (contextStorageService.storedValue() != null) {
-      this.contextControl.patchValue(contextStorageService.storedValue());
+    if (this.contextStorageService.storedValue() != null) {
+      this.contextControl.patchValue(this.contextStorageService.storedValue().name);
     }
 
   }
+
 
   ngOnDestroy(): void {
     this.contextSubscription?.unsubscribe();
@@ -45,7 +47,7 @@ export class LayoutComponent implements OnDestroy {
   }
 
   setContext(context: Context): void {
-    this.contextControl.patchValue(context);
+    this.contextControl.patchValue(context.name);
   }
 
 }
