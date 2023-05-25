@@ -4,7 +4,10 @@ import {MatTableDataSource} from "@angular/material/table";
 import {Module} from "./model/module";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
-import {map, Observable} from "rxjs";
+import {filter, map, Observable, switchMap} from "rxjs";
+import {MatDialog} from "@angular/material/dialog";
+import {ModuleModalComponent} from "./module-modal/module-modal.component";
+import {SnackbarService} from "../../shared/snackbar/snackbar.service";
 
 @Component({
   selector: 'app-modules',
@@ -27,7 +30,9 @@ export class ModulesComponent {
 
   selected: Module | undefined;
 
-  constructor(private moduleService: ModuleService) {
+  constructor(private moduleService: ModuleService,
+              private snackbarService: SnackbarService,
+              private dialog: MatDialog) {
   }
 
 
@@ -43,4 +48,15 @@ export class ModulesComponent {
   }
 
 
+  openModal(module: Module | undefined = null): void {
+    this.dialog.open(ModuleModalComponent, {
+      data: module
+    }).afterClosed()
+      .pipe(
+        filter(module => !!module),
+        switchMap(module => this.moduleService.addModule(module))
+      ).subscribe(_ => {
+          this.snackbarService.success("Module successfully created.");
+        }, error => this.snackbarService.error("Error while creating module."));
+  }
 }
