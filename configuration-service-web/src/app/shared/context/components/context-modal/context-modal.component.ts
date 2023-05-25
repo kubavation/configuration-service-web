@@ -9,7 +9,7 @@ import {Context} from "../../model/context";
 })
 export class ContextModalComponent {
 
-  private selected: Context;
+  selected: Context;
 
   constructor(private dialogRef: MatDialogRef<ContextModalComponent>) {
   }
@@ -23,7 +23,7 @@ export class ContextModalComponent {
     this.dialogRef.close(this.selected);
   }
 
-  onSelect(context: Context) {
+  onSelect(context: Context): void {
     this.selected = context;
   }
 }

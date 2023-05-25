@@ -15,7 +15,7 @@
     <tr
       mat-row
       (click)="onSelect(row)"
-      [class.demo-row-is-clicked]="selected == row"
+      [class.selected-row]="selected == row"
       *matRowDef="let row; columns: displayedColumns;"
     ></tr>
 
