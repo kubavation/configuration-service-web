@@ -8,6 +8,7 @@ import {filter, map, Observable, switchMap} from "rxjs";
 import {MatDialog} from "@angular/material/dialog";
 import {ModuleModalComponent} from "./module-modal/module-modal.component";
 import {SnackbarService} from "../../shared/snackbar/snackbar.service";
+import {ConfirmationService} from "../../shared/components/confirmation-modal/confirmation.service";
 
 @Component({
   selector: 'app-modules',
@@ -32,6 +33,7 @@ export class ModulesComponent {
 
   constructor(private moduleService: ModuleService,
               private snackbarService: SnackbarService,
+              private confirmationService: ConfirmationService,
               private dialog: MatDialog) {
   }
 
@@ -67,4 +69,15 @@ export class ModulesComponent {
     return this.moduleService.addModule(module);
   }
 
+  openConfirmationModal(): void {
+    this.confirmationService.open({
+      content: `Delete module ${this.selected?.name}?`
+    }).afterClosed()
+      .pipe(
+        filter(result => !!result),
+        switchMap(_ => this.moduleService.deleteModule(this.selected.name))
+      ).subscribe(_ => {
+          this.snackbarService.success("Module successfully deleted.");
+      }, error => this.snackbarService.error("Error while deleting module."));
+  }
 }

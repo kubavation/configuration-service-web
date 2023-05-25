@@ -20,6 +20,10 @@ export class ModuleService {
     return this.http.patch<void>(`${environment.url}/modules/${moduleName}`, module);
   }
 
+  public deleteModule(moduleName: string): Observable<void> {
+    return this.http.delete<void>(`${environment.url}/modules/${moduleName}`);
+  }
+
   public configurationPatterns(module: string): Observable<ConfigPattern[]> {
     return this.http.get<ConfigPattern[]>(`${environment.url}/modules/${module}/configuration-pattern`);
   }
