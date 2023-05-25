@@ -9,13 +9,15 @@ import {ContextService} from "../context/service/context.service";
 import {ContextModule} from "../context/context.module";
 import {ContextStorageService} from "../context/storage/context-storage.service";
 import {MatListModule} from "@angular/material/list";
+import { MenuComponent } from './menu/menu.component';
 
 
 
 @NgModule({
   declarations: [
     LayoutComponent,
-    HomeComponent
+    HomeComponent,
+    MenuComponent
   ],
   exports: [
     LayoutComponent
