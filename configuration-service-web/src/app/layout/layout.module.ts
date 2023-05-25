@@ -8,6 +8,7 @@ import {LayoutRoutingModule} from "./layout-routing.module";
 import {ContextService} from "../context/service/context.service";
 import {ContextModule} from "../context/context.module";
 import {ContextStorageService} from "../context/storage/context-storage.service";
+import {MatListModule} from "@angular/material/list";
 
 
 
@@ -19,13 +20,14 @@ import {ContextStorageService} from "../context/storage/context-storage.service"
   exports: [
     LayoutComponent
   ],
-  imports: [
-    CommonModule,
-    LayoutRoutingModule,
-    SharedModule,
-    RouterOutlet,
-    ContextModule
-  ],
+    imports: [
+        CommonModule,
+        LayoutRoutingModule,
+        SharedModule,
+        RouterOutlet,
+        ContextModule,
+        MatListModule
+    ],
   providers: [ContextService, ContextStorageService]
 })
 export class LayoutModule { }

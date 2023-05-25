@@ -15,15 +15,32 @@
 <mat-drawer-container class="sidenav-container" >
 
   <mat-drawer #drawer class="sidenav" mode="side">
-    <div>
-      <button mat-button routerLink="/contexts">Contexts</button>
-    </div>
-    <div>
-      <button mat-button routerLink="/administration/modules">Modules</button>
-    </div>
-    <div>
-      <button mat-button routerLink="/administration">Administration</button>
-    </div>
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        Configuration
+      </mat-expansion-panel-header>
+      <mat-nav-list>
+        <mat-list-item routerLink="/administration/modules">
+          Modules
+        </mat-list-item>
+      </mat-nav-list>
+    </mat-expansion-panel>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          Administration
+        </mat-expansion-panel-header>
+        <mat-nav-list>
+          <mat-list-item routerLink="/administration/modules">
+            Modules
+          </mat-list-item>
+          <mat-list-item routerLink="/administration/contexts">
+            Contexts
+          </mat-list-item>
+        </mat-nav-list>
+      </mat-expansion-panel>
+
   </mat-drawer>
 
   <div class="content" *ngIf="contextChosen">
@@ -36,3 +53,14 @@
 
 </mat-drawer-container>
 </div>
+
+<!--
+
+    <div>
+      <button mat-button routerLink="/contexts">Contexts</button>
+    </div>
+    <div>
+      <button mat-button routerLink="/administration/modules">Modules</button>
+    </div>
+
+-->
