@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ContextModulesComponent } from './context-modules/context-modules.component';
+import { ContextModulesComponent } from './context-modules.component';
 import {SharedModule} from "../shared/shared.module";
 
 
