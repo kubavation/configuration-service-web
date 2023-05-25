@@ -41,7 +41,9 @@ export class LayoutComponent implements OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.handleContextModalResult();
+    if (!this.contextChosen) {
+      this.handleContextModalResult();
+    }
   }
 
   private handleContextModalResult(): void {
