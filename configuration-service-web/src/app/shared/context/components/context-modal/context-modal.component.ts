@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {MatDialogRef} from "@angular/material/dialog";
+import {Context} from "../../model/context";
 
 @Component({
   selector: 'app-context-modal',
@@ -7,6 +8,8 @@ import {MatDialogRef} from "@angular/material/dialog";
   styleUrls: ['./context-modal.component.scss']
 })
 export class ContextModalComponent {
+
+  private selected: Context;
 
   constructor(private dialogRef: MatDialogRef<ContextModalComponent>) {
   }
@@ -17,6 +20,10 @@ export class ContextModalComponent {
   }
 
   save() {
-    this.dialogRef.close(null); //todo
+    this.dialogRef.close(this.selected);
+  }
+
+  onSelect(context: Context) {
+    this.selected = context;
   }
 }

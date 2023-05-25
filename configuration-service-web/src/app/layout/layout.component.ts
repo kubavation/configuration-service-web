@@ -1,17 +1,19 @@
 import {AfterViewInit, ChangeDetectorRef, Component, OnDestroy} from '@angular/core';
 import {ContextService} from "../shared/context/service/context.service";
 import {FormControl, Validators} from "@angular/forms";
-import {Subscription, tap} from "rxjs";
+import {filter, of, Subscription, switchMap, tap} from "rxjs";
 import {Context} from "../shared/context/model/context";
 import {ContextStorageService} from "../shared/context/storage/context-storage.service";
 import {ContextBsService} from "../shared/context/service/context-bs.service";
+import {MatDialog} from "@angular/material/dialog";
+import {ContextModalComponent} from "../shared/context/components/context-modal/context-modal.component";
 
 @Component({
   selector: 'app-layout',
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.scss']
 })
-export class LayoutComponent implements OnDestroy {
+export class LayoutComponent implements OnDestroy, AfterViewInit {
 
   contexts$ = this.contextService.contexts$;
 
@@ -22,6 +24,7 @@ export class LayoutComponent implements OnDestroy {
   constructor(private contextService: ContextService,
               private contextStorageService: ContextStorageService,
               private cdr: ChangeDetectorRef,
+              private dialog: MatDialog,
               private contextBsService: ContextBsService) {
 
     this.contextSubscription = this.contextControl
@@ -37,6 +40,18 @@ export class LayoutComponent implements OnDestroy {
 
   }
 
+  ngAfterViewInit(): void {
+    this.handleContextModalResult();
+  }
+
+  private handleContextModalResult(): void {
+    this.dialog.open(ContextModalComponent)
+      .afterClosed()
+      .pipe(
+        filter(context => !!context),
+      )
+      .subscribe(context => this.setContext(context))
+  }
 
   ngOnDestroy(): void {
     this.contextSubscription?.unsubscribe();
