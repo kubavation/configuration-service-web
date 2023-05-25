@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import {RouterModule, Routes} from "@angular/router";
 import {ContextModulesModule} from "./context-modules.module";
+import {ContextModulesComponent} from "./context-modules.component";
 
 const routes: Routes = [
-  {path: '**', component: ContextModulesModule},
+  {path: '', component: ContextModulesComponent},
+  {path: '**', component: ContextModulesComponent},
 ];
 
 @NgModule({
