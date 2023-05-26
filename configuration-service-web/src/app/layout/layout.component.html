@@ -19,24 +19,10 @@
   </mat-drawer>
 
 
-  <div class="content" *ngIf="contextChosen">
+  <div class="content" >
     <router-outlet></router-outlet>
-  </div>
-
-  <div class="content" *ngIf="!contextChosen">
-    <app-contexts (afterSelection)="setContext($event)"></app-contexts>
   </div>
 
 </mat-drawer-container>
 </div>
 
-<!--
-
-    <div>
-      <button mat-button routerLink="/contexts">Contexts</button>
-    </div>
-    <div>
-      <button mat-button routerLink="/administration/modules">Modules</button>
-    </div>
-
--->
