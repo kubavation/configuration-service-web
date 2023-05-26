@@ -1,5 +1,16 @@
-import { CanActivateFn } from '@angular/router';
+import {ActivatedRouteSnapshot, CanActivate, CanActivateFn, RouterStateSnapshot, UrlTree} from '@angular/router';
+import {Injectable} from "@angular/core";
+import {Observable} from "rxjs";
+import {ContextBsService} from "../context/service/context-bs.service";
 
-export const contextRequiredGuard: CanActivateFn = (route, state) => {
-  return true;
-};
+@Injectable()
+export class ContextRequiredGuard implements CanActivate {
+
+  constructor(private contextBsService: ContextBsService) {
+  }
+
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    return !!this.contextBsService.value()
+  }
+
+}
