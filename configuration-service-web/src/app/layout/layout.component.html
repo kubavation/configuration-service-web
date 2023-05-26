@@ -23,10 +23,6 @@
     <router-outlet></router-outlet>
   </div>
 
-  <div class="content" *ngIf="!contextChosen">
-    <app-contexts (afterSelection)="setContext($event)"></app-contexts>
-  </div>
-
 </mat-drawer-container>
 </div>
 
