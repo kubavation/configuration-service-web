@@ -3,7 +3,9 @@ import {Injectable} from "@angular/core";
 import {Observable} from "rxjs";
 import {ContextBsService} from "../context/service/context-bs.service";
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class ContextRequiredGuard implements CanActivate {
 
   constructor(private contextBsService: ContextBsService) {
