@@ -25,7 +25,7 @@ export class ContextModulesComponent {
 
   dataSource: MatTableDataSource<ContextModule>;
 
-  readonly displayedColumns = ['position', 'name', 'description'];
+  readonly displayedColumns = ['position', 'name'];
 
   selected: ContextModule | undefined;
 
