@@ -6,6 +6,8 @@ import {MatTableDataSource} from "@angular/material/table";
 import {ContextModule} from "./model/context-module";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
+import {MatDialog} from "@angular/material/dialog";
+import {ContextModulesModalComponent} from "./context-modules-modal/context-modules-modal.component";
 
 @Component({
   selector: 'app-context-modules',
@@ -31,6 +33,7 @@ export class ContextModulesComponent {
 
 
   constructor(private contextBsService: ContextBsService,
+              private dialog: MatDialog,
               private contextModulesService: ContextModulesService) {
   }
 
@@ -46,4 +49,9 @@ export class ContextModulesComponent {
   }
 
 
+  openModal(): void {
+    this.dialog.open(ContextModulesModalComponent)
+      .afterClosed()
+      .subscribe(result => console.log(result))
+  }
 }
