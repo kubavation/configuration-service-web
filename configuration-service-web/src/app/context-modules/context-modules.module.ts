@@ -4,12 +4,14 @@ import { ContextModulesComponent } from './context-modules.component';
 import {SharedModule} from "../shared/shared.module";
 import {ContextModulesRoutingModule} from "./context-modules-routing.module";
 import {ContextModulesService} from "./service/context-modules.service";
+import { ContextModulesModalComponent } from './context-modules-modal/context-modules-modal.component';
 
 
 
 @NgModule({
   declarations: [
-    ContextModulesComponent
+    ContextModulesComponent,
+    ContextModulesModalComponent
   ],
   imports: [
     CommonModule,
