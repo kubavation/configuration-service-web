@@ -12,6 +12,7 @@ import {Module} from "../../administration/modules/model/module";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
+import {ContextBsService} from "../../shared/context/service/context-bs.service";
 
 @Component({
   selector: 'app-context-modules-modal',
@@ -46,6 +47,7 @@ export class ContextModulesModalComponent extends DialogComponent<ContextModules
 
   constructor(public override dialogRef: MatDialogRef<ContextModulesModalComponent>,
               private modulesService: ModuleService,
+              private contextBsService: ContextBsService,
               @Inject(MAT_DIALOG_DATA) public data: ContextModule[],
               private fb: FormBuilder) {
     super(dialogRef);
@@ -65,6 +67,10 @@ export class ContextModulesModalComponent extends DialogComponent<ContextModules
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     return this.dataSource;
+  }
+
+  public get context(): string {
+    return this.contextBsService.value()?.name;
   }
 
 
