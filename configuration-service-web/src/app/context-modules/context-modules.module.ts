@@ -5,13 +5,15 @@ import {SharedModule} from "../shared/shared.module";
 import {ContextModulesRoutingModule} from "./context-modules-routing.module";
 import {ContextModulesService} from "./service/context-modules.service";
 import { ContextModulesModalComponent } from './context-modules-modal/context-modules-modal.component';
+import { ContextModuleConfigurationComponent } from './context-module-configuration/context-module-configuration.component';
 
 
 
 @NgModule({
   declarations: [
     ContextModulesComponent,
-    ContextModulesModalComponent
+    ContextModulesModalComponent,
+    ContextModuleConfigurationComponent
   ],
   imports: [
     CommonModule,

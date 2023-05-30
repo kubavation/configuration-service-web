@@ -1,6 +1,6 @@
 import {Component, ViewChild} from '@angular/core';
 import {ContextBsService} from "../shared/context/service/context-bs.service";
-import {BehaviorSubject, combineLatest, filter, map, switchMap, tap} from "rxjs";
+import {BehaviorSubject, combineLatest, filter, map, switchMap} from "rxjs";
 import {ContextModulesService} from "./service/context-modules.service";
 import {MatTableDataSource} from "@angular/material/table";
 import {ContextModule} from "./model/context-module";
