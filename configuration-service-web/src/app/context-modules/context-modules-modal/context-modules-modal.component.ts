@@ -43,7 +43,7 @@ export class ContextModulesModalComponent extends DialogComponent<ContextModules
 
   dataSource: MatTableDataSource<AvailableModule>;
 
-  readonly displayedColumns = ['position', 'name'];
+  readonly displayedColumns = ['position', 'name', 'enabled'];
 
   constructor(public override dialogRef: MatDialogRef<ContextModulesModalComponent>,
               private modulesService: ModuleService,

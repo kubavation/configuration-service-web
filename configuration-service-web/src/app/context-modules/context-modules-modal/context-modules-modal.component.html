@@ -13,6 +13,15 @@
         <td mat-cell *matCellDef="let row"> {{row.name}} </td>
       </ng-container>
 
+      <ng-container matColumnDef="enabled">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Enabled </th>
+        <td mat-cell *matCellDef="let row">
+          <mat-checkbox
+            [checked]="row.active">
+          </mat-checkbox>
+        </td>
+      </ng-container>
+
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
 
       <tr
