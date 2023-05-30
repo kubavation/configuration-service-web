@@ -49,7 +49,11 @@ export class ContextModulesModalComponent extends DialogComponent<ContextModules
               @Inject(MAT_DIALOG_DATA) public data: ContextModule[],
               private fb: FormBuilder) {
     super(dialogRef);
-    this.contextModulesSubject.next(data);
+
+    if (data) {
+      this.contextModulesSubject.next(data);
+    }
+
   }
 
   save(): void {
