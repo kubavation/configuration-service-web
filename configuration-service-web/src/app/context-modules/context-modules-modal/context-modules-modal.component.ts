@@ -60,7 +60,11 @@ export class ContextModulesModalComponent extends DialogComponent<ContextModules
   }
 
   save(): void {
-    this.dialogRef.close(this.form.value)
+    const modules = this.form.value.chosenModules
+      .filter(module => module.active)
+      .map(module => module.name);
+    
+    this.dialogRef.close(modules);
   }
 
   private toDataSource(modules: AvailableModule[]): MatTableDataSource<AvailableModule> {
