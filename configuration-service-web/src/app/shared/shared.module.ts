@@ -48,7 +48,7 @@ import { ContextModalComponent } from './context/components/context-modal/contex
     MatSlideToggleModule,
     MatSnackBarModule,
     MatCheckboxModule,
-    MatExpansionModule
+    MatExpansionModule,
   ],
   exports: [
     MatToolbarModule,

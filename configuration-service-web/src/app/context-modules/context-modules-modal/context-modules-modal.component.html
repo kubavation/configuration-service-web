@@ -1,7 +1,8 @@
 <h1 mat-dialog-title>Modules for context {{context}}</h1>
 <div mat-dialog-content>
+  <form [formGroup]="form">
   <div class="mat-elevation-z8">
-    <table mat-table [dataSource]="dataSource$ | async" matSort>
+    <table mat-table [dataSource]="dataSource$ | async" matSort >
 
       <ng-container matColumnDef="position">
         <th mat-header-cell *matHeaderCellDef> No. </th>
@@ -10,14 +11,13 @@
 
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
-        <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+        <td mat-cell  *matCellDef="let row; let i = index;"> {{row.get('module').value}} </td>
       </ng-container>
 
       <ng-container matColumnDef="enabled">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Enabled </th>
-        <td mat-cell *matCellDef="let row">
-          <mat-checkbox
-            [checked]="row.active">
+        <td mat-cell *matCellDef="let row; let i = index;" [formGroup]="row">
+          <mat-checkbox formControlName="enabled">
           </mat-checkbox>
         </td>
       </ng-container>
@@ -37,6 +37,8 @@
 
     <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
   </div>
+
+  </form>
 </div>
 <div mat-dialog-actions align="end">
   <button mat-button (click)="cancel()">Cancel</button>

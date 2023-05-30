@@ -1,6 +1,6 @@
 import {Component, Inject, ViewChild} from '@angular/core';
 import {DialogComponent} from "../../shared/components/dialog-component";
-import {FormBuilder, Validators} from "@angular/forms";
+import {FormArray, FormBuilder, Validators} from "@angular/forms";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {ConfigPattern} from "../../administration/modules/model/config-pattern";
 import {FormMode} from "../../shared/forms/form-mode";
@@ -21,11 +21,13 @@ import {ContextBsService} from "../../shared/context/service/context-bs.service"
 })
 export class ContextModulesModalComponent extends DialogComponent<ContextModulesModalComponent>{
 
-  form = this.fb.group({})
+  form = this.fb.group({
+    chosenModules: this.fb.array([])
+  })
 
   private contextModulesSubject = new BehaviorSubject<ContextModule[]>([]);
 
-  dataSource$: Observable<MatTableDataSource<AvailableModule>> = combineLatest([this.modulesService.modules$, this.contextModulesSubject])
+  dataSource$: Observable<MatTableDataSource<any>> = combineLatest([this.modulesService.modules$, this.contextModulesSubject])
     .pipe(
       map(([modules, contextModules]) => {
         return modules.map(module => {
@@ -55,7 +57,6 @@ export class ContextModulesModalComponent extends DialogComponent<ContextModules
     if (data) {
       this.contextModulesSubject.next(data);
     }
-
   }
 
   save(): void {
@@ -63,14 +64,30 @@ export class ContextModulesModalComponent extends DialogComponent<ContextModules
   }
 
   private toDataSource(modules: AvailableModule[]): MatTableDataSource<AvailableModule> {
-    this.dataSource = new MatTableDataSource<AvailableModule>(modules);
+
+    const controls: FormArray = new FormArray(modules.map(module => this.asControl(module)));
+    this.form.setControl('chosenModules', controls);
+
+    this.dataSource = new MatTableDataSource<any>((this.form.get('chosenModules') as FormArray).controls);
     this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
+    this.dataSource.paginator = this.paginator
+
     return this.dataSource;
   }
 
   public get context(): string {
     return this.contextBsService.value()?.name;
+  }
+
+  get chosenModules(): FormArray {
+    return this.form.get('chosenModules') as FormArray;
+  }
+
+  private asControl(availableModule: AvailableModule) {
+    return this.fb.group({
+      module: availableModule.name,
+      enabled: availableModule.active
+    });
   }
 
 
