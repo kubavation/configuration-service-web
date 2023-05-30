@@ -1,4 +1,4 @@
-import {Component, Inject} from '@angular/core';
+import {Component, Inject, ViewChild} from '@angular/core';
 import {DialogComponent} from "../../shared/components/dialog-component";
 import {FormBuilder, Validators} from "@angular/forms";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
@@ -8,6 +8,10 @@ import {ModuleService} from "../../administration/modules/service/module.service
 import {BehaviorSubject, combineLatest, map, Observable} from "rxjs";
 import {ContextModule} from "../model/context-module";
 import {AvailableModule} from "./model/available-module";
+import {Module} from "../../administration/modules/model/module";
+import {MatTableDataSource} from "@angular/material/table";
+import {MatPaginator} from "@angular/material/paginator";
+import {MatSort} from "@angular/material/sort";
 
 @Component({
   selector: 'app-context-modules-modal',
@@ -20,7 +24,7 @@ export class ContextModulesModalComponent extends DialogComponent<ContextModules
 
   private contextModulesSubject = new BehaviorSubject<ContextModule[]>([]);
 
-  dataSource$: Observable<AvailableModule[]> = combineLatest([this.modulesService.modules$, this.contextModulesSubject])
+  dataSource$: Observable<MatTableDataSource<AvailableModule>> = combineLatest([this.modulesService.modules$, this.contextModulesSubject])
     .pipe(
       map(([modules, contextModules]) => {
         return modules.map(module => {
@@ -29,8 +33,16 @@ export class ContextModulesModalComponent extends DialogComponent<ContextModules
             active: contextModules.find(contextModule => contextModule.name == module.name) != null
           }
         });
-      })
+      }),
+       map(availableModules => this.toDataSource(availableModules))
     )
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+
+  dataSource: MatTableDataSource<AvailableModule>;
+
+  readonly displayedColumns = ['position', 'name'];
 
   constructor(public override dialogRef: MatDialogRef<ContextModulesModalComponent>,
               private modulesService: ModuleService,
@@ -43,5 +55,13 @@ export class ContextModulesModalComponent extends DialogComponent<ContextModules
   save(): void {
     this.dialogRef.close(this.form.value)
   }
+
+  private toDataSource(modules: AvailableModule[]): MatTableDataSource<AvailableModule> {
+    this.dataSource = new MatTableDataSource<AvailableModule>(modules);
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+    return this.dataSource;
+  }
+
 
 }
