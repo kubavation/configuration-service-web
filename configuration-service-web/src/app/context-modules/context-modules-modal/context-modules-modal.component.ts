@@ -22,7 +22,7 @@ import {ContextBsService} from "../../shared/context/service/context-bs.service"
 export class ContextModulesModalComponent extends DialogComponent<ContextModulesModalComponent>{
 
   form = this.fb.group({
-    chosenModules: this.fb.array([])
+    chosenModules: this.fb.array<AvailableModule>([])
   })
 
   private contextModulesSubject = new BehaviorSubject<ContextModule[]>([]);
@@ -84,9 +84,9 @@ export class ContextModulesModalComponent extends DialogComponent<ContextModules
   }
 
   private asControl(availableModule: AvailableModule) {
-    return this.fb.group({
-      module: availableModule.name,
-      enabled: availableModule.active
+    return this.fb.group<AvailableModule>({
+      name: availableModule.name,
+      active: availableModule.active
     });
   }
 
