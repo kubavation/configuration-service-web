@@ -1,6 +1,6 @@
 import {Component, ViewChild} from '@angular/core';
 import {ContextBsService} from "../shared/context/service/context-bs.service";
-import {filter, map, switchMap, tap} from "rxjs";
+import {BehaviorSubject, combineLatest, filter, map, switchMap, tap} from "rxjs";
 import {ContextModulesService} from "./service/context-modules.service";
 import {MatTableDataSource} from "@angular/material/table";
 import {ContextModule} from "./model/context-module";
@@ -16,11 +16,15 @@ import {ContextModulesModalComponent} from "./context-modules-modal/context-modu
 })
 export class ContextModulesComponent {
 
-  dataSource$ = this.contextBsService.context$
+  private refreshSubject = new BehaviorSubject<void>(null);
+
+  dataSource$ = combineLatest([this.contextBsService.context$, this.refreshSubject])
     .pipe(
+      map(([context, _]) => context),
       switchMap(context => this.contextModulesService.contextModules(context.name)),
       map(modules => this.toDataSource(modules))
     )
+
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -62,6 +66,8 @@ export class ContextModulesComponent {
             }))
         )
       )
-      .subscribe(result => console.log(result))
+      .subscribe(_ => {
+        this.refreshSubject.next();
+      })
   }
 }
