@@ -50,7 +50,9 @@ export class ContextModulesComponent {
 
 
   openModal(): void {
-    this.dialog.open(ContextModulesModalComponent)
+    this.dialog.open(ContextModulesModalComponent, {
+      data: this.dataSource.data
+    })
       .afterClosed()
       .pipe(
         filter((moduleNames: string[]) => !!moduleNames),
