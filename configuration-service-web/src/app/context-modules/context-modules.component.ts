@@ -8,6 +8,7 @@ import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {MatDialog} from "@angular/material/dialog";
 import {ContextModulesModalComponent} from "./context-modules-modal/context-modules-modal.component";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-context-modules',
@@ -38,6 +39,7 @@ export class ContextModulesComponent {
 
   constructor(private contextBsService: ContextBsService,
               private dialog: MatDialog,
+              private router: Router,
               private contextModulesService: ContextModulesService) {
   }
 
@@ -69,5 +71,9 @@ export class ContextModulesComponent {
       .subscribe(_ => {
         this.refreshSubject.next();
       })
+  }
+
+  redirectToConfiguration(): void {
+    this.router.navigateByUrl(`${this.selected.name}/configuration`);
   }
 }
