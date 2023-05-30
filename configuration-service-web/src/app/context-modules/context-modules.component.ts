@@ -1,6 +1,6 @@
 import {Component, ViewChild} from '@angular/core';
 import {ContextBsService} from "../shared/context/service/context-bs.service";
-import {map, switchMap} from "rxjs";
+import {map, switchMap, tap} from "rxjs";
 import {ContextModulesService} from "./service/context-modules.service";
 import {MatTableDataSource} from "@angular/material/table";
 import {ContextModule} from "./model/context-module";
@@ -52,6 +52,13 @@ export class ContextModulesComponent {
   openModal(): void {
     this.dialog.open(ContextModulesModalComponent)
       .afterClosed()
+      .pipe(
+        switchMap((moduleNames: string[]) => this.contextModulesService.setContextModules(this.contextBsService.value().name,
+          moduleNames.map(moduleName => {
+              return {name: moduleName}
+            }))
+        )
+      )
       .subscribe(result => console.log(result))
   }
 }
