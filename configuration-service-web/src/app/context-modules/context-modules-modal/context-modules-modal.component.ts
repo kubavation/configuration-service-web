@@ -63,7 +63,7 @@ export class ContextModulesModalComponent extends DialogComponent<ContextModules
     const modules = this.form.value.chosenModules
       .filter(module => module.active)
       .map(module => module.name);
-    
+
     this.dialogRef.close(modules);
   }
 

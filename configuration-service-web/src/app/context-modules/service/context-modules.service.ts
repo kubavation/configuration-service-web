@@ -12,4 +12,9 @@ export class ContextModulesService {
   public contextModules(context: string): Observable<ContextModule[]> {
     return this.http.get<ContextModule[]>(`${environment.url}/contexts/${context}/modules`);
   }
+
+  public setContextModules(context: string, contextModules: ContextModule[]): Observable<void> {
+    return this.http.patch<void>(`${environment.url}/contexts/${context}/modules`, contextModules);
+  }
+
 }
