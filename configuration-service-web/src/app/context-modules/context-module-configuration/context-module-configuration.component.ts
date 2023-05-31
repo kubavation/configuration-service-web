@@ -28,7 +28,7 @@ export class ContextModuleConfigurationComponent implements OnDestroy {
       filter(([params, _]) => !!params['module']),
       tap(([params, _]) => this.module = params['module']),
       switchMap(([params, context]) => this.contextModuleConfigurationService.moduleConfiguration(context.name, params['module'])),
-      map(moduleConfiguration => this.toDataSource(moduleConfiguration.configuration))
+      map(moduleConfiguration => this.toDataSource(moduleConfiguration?.configuration ?? []))
     )
 
   @ViewChild(MatSort) sort: MatSort;
