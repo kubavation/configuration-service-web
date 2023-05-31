@@ -40,7 +40,6 @@ export class ContextModulesModalComponent extends DialogComponent<ContextModules
        map(availableModules => this.toDataSource(availableModules))
     )
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   dataSource: MatTableDataSource<AvailableModule>;
@@ -74,7 +73,6 @@ export class ContextModulesModalComponent extends DialogComponent<ContextModules
 
     this.dataSource = new MatTableDataSource<any>((this.form.get('chosenModules') as FormArray).controls);
     this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator
 
     return this.dataSource;
   }
