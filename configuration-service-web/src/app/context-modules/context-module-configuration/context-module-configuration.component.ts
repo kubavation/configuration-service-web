@@ -1,6 +1,6 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, OnDestroy, ViewChild} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
-import {combineLatest, filter, map, switchMap, tap} from "rxjs";
+import {combineLatest, filter, map, Subscription, switchMap, tap} from "rxjs";
 import {ContextBsService} from "../../shared/context/service/context-bs.service";
 import {ContextModuleConfigurationService} from "./service/context-module-configuration.service";
 import {MatSort} from "@angular/material/sort";
@@ -13,7 +13,7 @@ import {FormArray, FormBuilder, FormControl} from "@angular/forms";
   templateUrl: './context-module-configuration.component.html',
   styleUrls: ['./context-module-configuration.component.scss']
 })
-export class ContextModuleConfigurationComponent {
+export class ContextModuleConfigurationComponent implements OnDestroy {
 
   editContextControl = new FormControl(false);
 
@@ -32,6 +32,8 @@ export class ContextModuleConfigurationComponent {
 
   dataSource: MatTableDataSource<Configuration>;
 
+  private editContextSubscription = new Subscription();
+
   readonly displayedColumns = ['position', 'name', 'description', 'value'];
 
   constructor(private activatedRoute: ActivatedRoute,
@@ -48,6 +50,10 @@ export class ContextModuleConfigurationComponent {
 
     this.dataSource = new MatTableDataSource<any>((this.form.get('configurations') as FormArray).controls);
     this.dataSource.sort = this.sort;
+
+    this.editContextSubscription = this.editContextControl.valueChanges
+      .subscribe(value => this.configurations.controls.forEach(c => value ? c.enable() : c.disable()))
+    this.editContextControl.setValue(false);
 
     return this.dataSource;
   }
@@ -71,5 +77,11 @@ export class ContextModuleConfigurationComponent {
   get editContextValue(): boolean {
     return this.editContextControl.value
   }
+
+  ngOnDestroy(): void {
+    this.editContextSubscription?.unsubscribe();
+  }
+
+
 
 }
