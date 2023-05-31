@@ -6,6 +6,9 @@ import {ContextModulesRoutingModule} from "./context-modules-routing.module";
 import {ContextModulesService} from "./service/context-modules.service";
 import { ContextModulesModalComponent } from './context-modules-modal/context-modules-modal.component';
 import { ContextModuleConfigurationComponent } from './context-module-configuration/context-module-configuration.component';
+import {
+  ContextModuleConfigurationService
+} from "./context-module-configuration/service/context-module-configuration.service";
 
 
 
@@ -20,6 +23,6 @@ import { ContextModuleConfigurationComponent } from './context-module-configurat
     ContextModulesRoutingModule,
     SharedModule
   ],
-  providers: [ContextModulesService]
+  providers: [ContextModulesService, ContextModuleConfigurationService]
 })
 export class ContextModulesModule { }
