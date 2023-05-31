@@ -6,7 +6,9 @@ import {ContextModuleConfigurationService} from "./service/context-module-config
 import {MatSort} from "@angular/material/sort";
 import {MatTableDataSource} from "@angular/material/table";
 import {Configuration} from "./model/configuration";
-import {FormArray, FormBuilder, FormControl} from "@angular/forms";
+import {AbstractControl, FormArray, FormBuilder, FormControl} from "@angular/forms";
+import {SnackbarService} from "../../shared/snackbar/snackbar.service";
+import {ModuleConfiguration} from "./model/module-configuration";
 
 @Component({
   selector: 'app-context-module-configuration',
@@ -24,6 +26,7 @@ export class ContextModuleConfigurationComponent implements OnDestroy {
   dataSource$ = combineLatest([this.activatedRoute.params, this.contextBsService.context$])
     .pipe(
       filter(([params, _]) => !!params['module']),
+      tap(([params, _]) => this.module = params['module']),
       switchMap(([params, context]) => this.contextModuleConfigurationService.moduleConfiguration(context.name, params['module'])),
       map(moduleConfiguration => this.toDataSource(moduleConfiguration.configuration))
     )
@@ -33,12 +36,14 @@ export class ContextModuleConfigurationComponent implements OnDestroy {
   dataSource: MatTableDataSource<Configuration>;
 
   private editContextSubscription = new Subscription();
+  private module: string | undefined;
 
   readonly displayedColumns = ['position', 'name', 'description', 'value'];
 
   constructor(private activatedRoute: ActivatedRoute,
               private contextModuleConfigurationService: ContextModuleConfigurationService,
               private contextBsService: ContextBsService,
+              private snackbarService: SnackbarService,
               private fb: FormBuilder) {
 
   }
@@ -71,6 +76,14 @@ export class ContextModuleConfigurationComponent implements OnDestroy {
     });
   }
 
+  private fromControl(control: AbstractControl): Configuration {
+    return {
+      name: control.get('name').value,
+      description: control.get('description').value,
+      value: control.get('value').value
+    }
+  }
+
   get editContextValue(): boolean {
     return this.editContextControl.value
   }
@@ -87,5 +100,13 @@ export class ContextModuleConfigurationComponent implements OnDestroy {
 
   saveConfig(): void {
 
+    const moduleConfiguration: ModuleConfiguration = {
+      configuration: this.configurations.controls.map(control => this.fromControl(control))
+    };
+
+    this.contextModuleConfigurationService.setModuleConfiguration(this.context, this.module, moduleConfiguration)
+      .subscribe(_ => {
+        this.snackbarService.success(`Successfully changed configuration for module ${this.module}`)
+      })
   }
 }
