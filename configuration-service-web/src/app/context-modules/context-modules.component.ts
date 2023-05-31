@@ -74,6 +74,6 @@ export class ContextModulesComponent {
   }
 
   redirectToConfiguration(): void {
-    this.router.navigateByUrl(`${this.selected.name}/configuration`);
+    this.router.navigateByUrl(`modules/${this.selected.name}/configuration`);
   }
 }
