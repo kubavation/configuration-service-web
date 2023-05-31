@@ -85,4 +85,7 @@ export class ContextModuleConfigurationComponent implements OnDestroy {
     this.editContextControl.setValue(false);
   }
 
+  saveConfig(): void {
+
+  }
 }
