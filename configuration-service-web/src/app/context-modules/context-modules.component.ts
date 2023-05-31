@@ -1,6 +1,6 @@
 import {Component, ViewChild} from '@angular/core';
 import {ContextBsService} from "../shared/context/service/context-bs.service";
-import {map, switchMap, tap} from "rxjs";
+import {BehaviorSubject, combineLatest, filter, map, switchMap} from "rxjs";
 import {ContextModulesService} from "./service/context-modules.service";
 import {MatTableDataSource} from "@angular/material/table";
 import {ContextModule} from "./model/context-module";
@@ -8,6 +8,7 @@ import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {MatDialog} from "@angular/material/dialog";
 import {ContextModulesModalComponent} from "./context-modules-modal/context-modules-modal.component";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-context-modules',
@@ -16,11 +17,15 @@ import {ContextModulesModalComponent} from "./context-modules-modal/context-modu
 })
 export class ContextModulesComponent {
 
-  dataSource$ = this.contextBsService.context$
+  private refreshSubject = new BehaviorSubject<void>(null);
+
+  dataSource$ = combineLatest([this.contextBsService.context$, this.refreshSubject])
     .pipe(
+      map(([context, _]) => context),
       switchMap(context => this.contextModulesService.contextModules(context.name)),
       map(modules => this.toDataSource(modules))
     )
+
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -34,6 +39,7 @@ export class ContextModulesComponent {
 
   constructor(private contextBsService: ContextBsService,
               private dialog: MatDialog,
+              private router: Router,
               private contextModulesService: ContextModulesService) {
   }
 
@@ -50,15 +56,24 @@ export class ContextModulesComponent {
 
 
   openModal(): void {
-    this.dialog.open(ContextModulesModalComponent)
+    this.dialog.open(ContextModulesModalComponent, {
+      data: this.dataSource.data
+    })
       .afterClosed()
       .pipe(
+        filter((moduleNames: string[]) => !!moduleNames),
         switchMap((moduleNames: string[]) => this.contextModulesService.setContextModules(this.contextBsService.value().name,
           moduleNames.map(moduleName => {
               return {name: moduleName}
             }))
         )
       )
-      .subscribe(result => console.log(result))
+      .subscribe(_ => {
+        this.refreshSubject.next();
+      })
+  }
+
+  redirectToConfiguration(): void {
+    this.router.navigateByUrl(`modules/${this.selected.name}/configuration`);
   }
 }
