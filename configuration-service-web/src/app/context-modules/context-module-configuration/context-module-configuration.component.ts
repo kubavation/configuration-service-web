@@ -1,6 +1,6 @@
 import {Component, ViewChild} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
-import {combineLatest, filter, map, switchMap} from "rxjs";
+import {combineLatest, filter, map, switchMap, tap} from "rxjs";
 import {ContextBsService} from "../../shared/context/service/context-bs.service";
 import {ContextModuleConfigurationService} from "./service/context-module-configuration.service";
 import {MatSort} from "@angular/material/sort";
@@ -38,6 +38,7 @@ export class ContextModuleConfigurationComponent {
               private contextModuleConfigurationService: ContextModuleConfigurationService,
               private contextBsService: ContextBsService,
               private fb: FormBuilder) {
+
   }
 
   private toDataSource(configurations: Configuration[]): MatTableDataSource<Configuration> {
@@ -55,7 +56,7 @@ export class ContextModuleConfigurationComponent {
     return this.contextBsService.value()?.name;
   }
 
-  get chosenModules(): FormArray {
+  get configurations(): FormArray {
     return this.form.get('configurations') as FormArray;
   }
 
