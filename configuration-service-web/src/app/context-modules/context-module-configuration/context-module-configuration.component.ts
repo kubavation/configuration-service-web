@@ -5,9 +5,8 @@ import {ContextBsService} from "../../shared/context/service/context-bs.service"
 import {ContextModuleConfigurationService} from "./service/context-module-configuration.service";
 import {MatSort} from "@angular/material/sort";
 import {MatTableDataSource} from "@angular/material/table";
-import {AvailableModule} from "../context-modules-modal/model/available-module";
 import {Configuration} from "./model/configuration";
-import {FormArray, FormBuilder} from "@angular/forms";
+import {FormArray, FormBuilder, FormControl} from "@angular/forms";
 
 @Component({
   selector: 'app-context-module-configuration',
@@ -15,6 +14,8 @@ import {FormArray, FormBuilder} from "@angular/forms";
   styleUrls: ['./context-module-configuration.component.scss']
 })
 export class ContextModuleConfigurationComponent {
+
+  editContextControl = new FormControl(false);
 
   form = this.fb.group({
     configurations: this.fb.array<Configuration>([])
@@ -64,6 +65,10 @@ export class ContextModuleConfigurationComponent {
       description: configuration.description,
       value: configuration.value
     });
+  }
+
+  get editContextValue(): boolean {
+    return this.editContextControl.value
   }
 
 }
