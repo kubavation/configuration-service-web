@@ -1,16 +1,12 @@
 import {Component, Inject, ViewChild} from '@angular/core';
 import {DialogComponent} from "../../shared/components/dialog-component";
-import {FormArray, FormBuilder, Validators} from "@angular/forms";
+import {FormArray, FormBuilder} from "@angular/forms";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {ConfigPattern} from "../../administration/modules/model/config-pattern";
-import {FormMode} from "../../shared/forms/form-mode";
 import {ModuleService} from "../../administration/modules/service/module.service";
 import {BehaviorSubject, combineLatest, map, Observable} from "rxjs";
 import {ContextModule} from "../model/context-module";
 import {AvailableModule} from "./model/available-module";
-import {Module} from "../../administration/modules/model/module";
 import {MatTableDataSource} from "@angular/material/table";
-import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {ContextBsService} from "../../shared/context/service/context-bs.service";
 

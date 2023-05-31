@@ -1,3 +1,39 @@
-<div *ngIf="configuration$ | async">
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource$ | async" matSort >
 
+    <ng-container matColumnDef="position">
+      <th mat-header-cell *matHeaderCellDef> No. </th>
+      <td mat-cell *matCellDef="let element; let i = index;"> {{i + 1}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+      <td mat-cell  *matCellDef="let row; let i = index;"> {{row.get('name').value}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
+      <td mat-cell  *matCellDef="let row; let i = index;"> {{row.get('description').value}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="value">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Value </th>
+      <td mat-cell *matCellDef="let row; let i = index;" [formGroup]="row">
+        <mat-checkbox formControlName="value">
+        </mat-checkbox>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+
+    <tr
+      mat-row
+      *matRowDef="let row; columns: displayedColumns;"
+    ></tr>
+
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">No data</td>
+    </tr>
+
+  </table>
 </div>
