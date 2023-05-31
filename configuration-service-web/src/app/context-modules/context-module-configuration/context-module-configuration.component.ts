@@ -51,10 +51,7 @@ export class ContextModuleConfigurationComponent implements OnDestroy {
     this.dataSource = new MatTableDataSource<any>((this.form.get('configurations') as FormArray).controls);
     this.dataSource.sort = this.sort;
 
-    this.editContextSubscription = this.editContextControl.valueChanges
-      .subscribe(value => this.configurations.controls.forEach(c => value ? c.enable() : c.disable()))
-    this.editContextControl.setValue(false);
-
+    this.initEditContext();
     return this.dataSource;
   }
 
@@ -82,6 +79,10 @@ export class ContextModuleConfigurationComponent implements OnDestroy {
     this.editContextSubscription?.unsubscribe();
   }
 
-
+  private initEditContext(): void {
+    this.editContextSubscription = this.editContextControl.valueChanges
+      .subscribe(value => this.configurations.controls.forEach(c => value ? c.enable() : c.disable()))
+    this.editContextControl.setValue(false);
+  }
 
 }
