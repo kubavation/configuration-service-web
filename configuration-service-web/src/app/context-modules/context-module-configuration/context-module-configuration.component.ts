@@ -1,6 +1,6 @@
 import {Component, OnDestroy, ViewChild} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
-import {combineLatest, filter, map, Subscription, switchMap, tap} from "rxjs";
+import {ActivatedRoute, Router} from "@angular/router";
+import {catchError, combineLatest, filter, map, of, Subscription, switchMap, tap} from "rxjs";
 import {ContextBsService} from "../../shared/context/service/context-bs.service";
 import {ContextModuleConfigurationService} from "./service/context-module-configuration.service";
 import {MatSort} from "@angular/material/sort";
@@ -27,7 +27,14 @@ export class ContextModuleConfigurationComponent implements OnDestroy {
     .pipe(
       filter(([params, _]) => !!params['module']),
       tap(([params, _]) => this.module = params['module']),
-      switchMap(([params, context]) => this.contextModuleConfigurationService.moduleConfiguration(context.name, params['module'])),
+      switchMap(([params, context]) => this.contextModuleConfigurationService.moduleConfiguration(context.name, params['module'])
+        .pipe(
+          catchError(_ => {
+            this.router.navigateByUrl('/modules');
+            return of(null);
+          })
+        )
+      ),
       map(moduleConfiguration => this.toDataSource(moduleConfiguration?.configuration ?? []))
     )
 
@@ -44,6 +51,7 @@ export class ContextModuleConfigurationComponent implements OnDestroy {
               private contextModuleConfigurationService: ContextModuleConfigurationService,
               private contextBsService: ContextBsService,
               private snackbarService: SnackbarService,
+              private router: Router,
               private fb: FormBuilder) {
 
   }
