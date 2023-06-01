@@ -1,7 +1,7 @@
 import {Component, ViewChild} from '@angular/core';
 import {ModuleService} from "../service/module.service";
 import {ActivatedRoute} from "@angular/router";
-import {BehaviorSubject, combineLatest, filter, map, Observable, switchMap, tap, withLatestFrom} from "rxjs";
+import {BehaviorSubject, combineLatest, filter, map, Observable, switchMap, withLatestFrom} from "rxjs";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {MatTableDataSource} from "@angular/material/table";
@@ -9,7 +9,6 @@ import {ConfigPattern} from "../model/config-pattern";
 import {MatDialog} from "@angular/material/dialog";
 import {ConfigurationPatternModalComponent} from "./configuration-pattern-modal/configuration-pattern-modal.component";
 import {SnackbarService} from "../../../shared/snackbar/snackbar.service";
-import {ConfirmationModalComponent} from "../../../shared/components/confirmation-modal/confirmation-modal.component";
 import {ConfirmationService} from "../../../shared/components/confirmation-modal/confirmation.service";
 
 @Component({
