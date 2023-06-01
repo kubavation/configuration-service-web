@@ -4,9 +4,9 @@ table {
   width: 80vw !important;
 }
 
-.demo-row-is-clicked {
+.selected-row {
   font-weight: bold;
-  background-color: lightgray;
+  background-color: silver !important;
 }
 
 .mat-mdc-row .mat-mdc-cell {
