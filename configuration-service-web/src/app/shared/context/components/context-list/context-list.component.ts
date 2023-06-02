@@ -4,7 +4,7 @@ import {MatTableDataSource} from "@angular/material/table";
 import {Context} from "../../model/context";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
-import {ContextService} from "../../service/context.service";
+import {ContextListService} from "../../service/context-list.service";
 
 @Component({
   selector: 'app-context-list',
@@ -29,7 +29,7 @@ export class ContextListComponent {
 
   @Output() public afterSelection = new EventEmitter<Context>();
 
-  constructor(private contextService: ContextService) {}
+  constructor(private contextService: ContextListService) {}
 
   private toDataSource(contexts: Context[]): MatTableDataSource<Context> {
     this.dataSource = new MatTableDataSource<Context>(contexts);
