@@ -8,6 +8,7 @@ import { ConfigurationPatternComponent } from './modules/configuration-pattern/c
 import { ConfigurationPatternModalComponent } from './modules/configuration-pattern/configuration-pattern-modal/configuration-pattern-modal.component';
 import {ContextsComponent} from "./contexts/contexts/contexts.component";
 import { ModuleModalComponent } from './modules/module-modal/module-modal.component';
+import { ContextModalComponent } from './contexts/contexts/context-modal/context-modal.component';
 
 
 
@@ -17,7 +18,8 @@ import { ModuleModalComponent } from './modules/module-modal/module-modal.compon
     ConfigurationPatternComponent,
     ConfigurationPatternModalComponent,
     ContextsComponent,
-    ModuleModalComponent
+    ModuleModalComponent,
+    ContextModalComponent
   ],
   imports: [
     CommonModule,
