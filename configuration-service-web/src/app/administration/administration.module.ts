@@ -6,8 +6,10 @@ import {ModulesComponent} from "./modules/modules.component";
 import {ModuleService} from "./modules/service/module.service";
 import { ConfigurationPatternComponent } from './modules/configuration-pattern/configuration-pattern.component';
 import { ConfigurationPatternModalComponent } from './modules/configuration-pattern/configuration-pattern-modal/configuration-pattern-modal.component';
-import {ContextsComponent} from "./contexts/context-list/contexts.component";
+import {ContextsComponent} from "./contexts/contexts/contexts.component";
 import { ModuleModalComponent } from './modules/module-modal/module-modal.component';
+import { ContextModalComponent } from './contexts/contexts/context-modal/context-modal.component';
+import {ContextService} from "./contexts/contexts/service/context.service";
 
 
 
@@ -17,7 +19,8 @@ import { ModuleModalComponent } from './modules/module-modal/module-modal.compon
     ConfigurationPatternComponent,
     ConfigurationPatternModalComponent,
     ContextsComponent,
-    ModuleModalComponent
+    ModuleModalComponent,
+    ContextModalComponent
   ],
   imports: [
     CommonModule,
@@ -27,6 +30,6 @@ import { ModuleModalComponent } from './modules/module-modal/module-modal.compon
   exports: [
     ContextsComponent
   ],
-  providers: [ModuleService]
+  providers: [ModuleService, ContextService]
 })
 export class AdministrationModule { }

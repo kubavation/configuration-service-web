@@ -7,7 +7,7 @@ import {environment} from "../../../../environments/environment";
 
 
 @Injectable()
-export class ContextService {
+export class ContextListService {
 
   constructor(private http: HttpClient) { }
 
