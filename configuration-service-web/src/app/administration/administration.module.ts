@@ -9,6 +9,7 @@ import { ConfigurationPatternModalComponent } from './modules/configuration-patt
 import {ContextsComponent} from "./contexts/contexts/contexts.component";
 import { ModuleModalComponent } from './modules/module-modal/module-modal.component';
 import { ContextModalComponent } from './contexts/contexts/context-modal/context-modal.component';
+import {ContextService} from "./contexts/contexts/service/context.service";
 
 
 
@@ -29,6 +30,6 @@ import { ContextModalComponent } from './contexts/contexts/context-modal/context
   exports: [
     ContextsComponent
   ],
-  providers: [ModuleService]
+  providers: [ModuleService, ContextService]
 })
 export class AdministrationModule { }
