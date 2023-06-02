@@ -3,15 +3,11 @@ import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {Context} from "../../../shared/context/model/context";
-import {filter, map, Observable, switchMap, withLatestFrom} from "rxjs";
-import {
-  ConfigurationPatternModalComponent
-} from "../../modules/configuration-pattern/configuration-pattern-modal/configuration-pattern-modal.component";
+import {filter, map, Observable, switchMap} from "rxjs";
 import {ContextService} from "./service/context.service";
 import {MatDialog} from "@angular/material/dialog";
 import {SnackbarService} from "../../../shared/snackbar/snackbar.service";
 import {ContextModalComponent} from "./context-modal/context-modal.component";
-import {ConfigPattern} from "../../modules/model/config-pattern";
 import {ConfirmationService} from "../../../shared/components/confirmation-modal/confirmation.service";
 
 @Component({
@@ -21,18 +17,7 @@ import {ConfirmationService} from "../../../shared/components/confirmation-modal
 })
 export class ContextsComponent {
 
-  dataSource$: Observable<MatTableDataSource<Context>> = this.contextService.contexts$
-    .pipe(
-      map((contexts) => this.toDataSource(contexts))
-    );
-
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
-
-  dataSource: MatTableDataSource<Context>;
-
-  readonly displayedColumns = ['position', 'name'];
-
+  contexts$ = this.contextService.contexts$;
   selected: Context | undefined;
 
   @Output() public afterSelection = new EventEmitter<Context>();
@@ -42,22 +27,12 @@ export class ContextsComponent {
               private confirmationService: ConfirmationService,
               private snackbarService: SnackbarService) {}
 
-  private toDataSource(contexts: Context[]): MatTableDataSource<Context> {
-    this.dataSource = new MatTableDataSource<Context>(contexts);
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
-    return this.dataSource;
-  }
 
   applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    // const filterValue = (event.target as HTMLInputElement).value;
+    // this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  onSelect(context: Context): void {
-    this.selected = context;
-    this.afterSelection.emit(context);
-  }
 
   openModal(context: Context | undefined = null): void {
     this.dialog.open(ContextModalComponent, {

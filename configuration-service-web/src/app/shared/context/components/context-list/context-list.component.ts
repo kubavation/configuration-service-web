@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {map, Observable} from "rxjs";
 import {MatTableDataSource} from "@angular/material/table";
 import {Context} from "../../model/context";
@@ -26,6 +26,10 @@ export class ContextListComponent {
   readonly displayedColumns = ['position', 'name'];
 
   selected: Context | undefined;
+
+  @Input() public set externalSource(contexts: Context[]) {
+    this.toDataSource(contexts);
+  }
 
   @Output() public afterSelection = new EventEmitter<Context>();
 
