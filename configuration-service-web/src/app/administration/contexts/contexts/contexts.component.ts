@@ -1,10 +1,17 @@
 import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
-import {ContextService} from "../../../shared/context/service/context.service";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {Context} from "../../../shared/context/model/context";
-import {map, Observable} from "rxjs";
+import {filter, map, Observable, switchMap, withLatestFrom} from "rxjs";
+import {
+  ConfigurationPatternModalComponent
+} from "../../modules/configuration-pattern/configuration-pattern-modal/configuration-pattern-modal.component";
+import {ContextService} from "./service/context.service";
+import {MatDialog} from "@angular/material/dialog";
+import {SnackbarService} from "../../../shared/snackbar/snackbar.service";
+import {ContextModalComponent} from "./context-modal/context-modal.component";
+import {ConfigPattern} from "../../modules/model/config-pattern";
 
 @Component({
   selector: 'app-contexts',
@@ -29,7 +36,9 @@ export class ContextsComponent {
 
   @Output() public afterSelection = new EventEmitter<Context>();
 
-  constructor(private contextService: ContextService) {}
+  constructor(private contextService: ContextService,
+              private dialog: MatDialog,
+              private snackbarService: SnackbarService) {}
 
   private toDataSource(contexts: Context[]): MatTableDataSource<Context> {
     this.dataSource = new MatTableDataSource<Context>(contexts);
@@ -46,5 +55,32 @@ export class ContextsComponent {
   onSelect(context: Context): void {
     this.selected = context;
     this.afterSelection.emit(context);
+  }
+
+  openModal(context: Context | undefined = null): void {
+    this.dialog.open(ContextModalComponent, {
+      data: context,
+      width: '40vw'
+    })
+      .afterClosed()
+      .pipe(
+        filter(ctx => !!ctx),
+        switchMap((ctx) => this.saveContext(ctx, this.selected?.name))
+      ).subscribe(_ => {
+          this.snackbarService.success("Context successfully created.");
+          },
+        error => this.snackbarService.error("Error while creating configuration pattern.")
+      );
+  }
+
+  openConfirmationModal() {
+
+  }
+
+  private saveContext(context: Context, name: string | undefined = null): Observable<void> {
+    if (name) {
+      return this.contextService.editContext(name, context);
+    }
+    return this.contextService.addContext(context);
   }
 }
