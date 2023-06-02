@@ -19,7 +19,7 @@ export class ContextService {
     return this.http.put<void>(`${environment.url}/contexts/${contextName}`, context);
   }
 
-  public deleteContext(contextName: string, context: Context): Observable<void> {
+  public deleteContext(contextName: string): Observable<void> {
     return this.http.delete<void>(`${environment.url}/contexts/${contextName}`);
   }
 

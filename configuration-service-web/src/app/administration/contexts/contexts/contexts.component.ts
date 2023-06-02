@@ -12,6 +12,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {SnackbarService} from "../../../shared/snackbar/snackbar.service";
 import {ContextModalComponent} from "./context-modal/context-modal.component";
 import {ConfigPattern} from "../../modules/model/config-pattern";
+import {ConfirmationService} from "../../../shared/components/confirmation-modal/confirmation.service";
 
 @Component({
   selector: 'app-contexts',
@@ -38,6 +39,7 @@ export class ContextsComponent {
 
   constructor(private contextService: ContextService,
               private dialog: MatDialog,
+              private confirmationService: ConfirmationService,
               private snackbarService: SnackbarService) {}
 
   private toDataSource(contexts: Context[]): MatTableDataSource<Context> {
@@ -73,8 +75,18 @@ export class ContextsComponent {
       );
   }
 
-  openConfirmationModal() {
-
+  openConfirmationModal(): void {
+    this.confirmationService.open({
+      content: `Delete context ${this.selected?.name}?`
+    })
+      .afterClosed()
+      .pipe(
+        filter(result => !!result),
+        switchMap((_) => this.contextService.deleteContext(this.selected?.name))
+      )
+      .subscribe(_ => {
+        this.snackbarService.success("Context successfully deleted.");
+      }, error => this.snackbarService.error("Error while deleting context."));
   }
 
   private saveContext(context: Context, name: string | undefined = null): Observable<void> {
