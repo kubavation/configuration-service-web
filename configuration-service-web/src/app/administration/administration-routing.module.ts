@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from "@angular/router";
 import {ModulesComponent} from "./modules/modules.component";
 import {ConfigurationPatternComponent} from "./modules/configuration-pattern/configuration-pattern.component";
-import {ContextsComponent} from "./contexts/context-list/contexts.component";
+import {ContextsComponent} from "./contexts/contexts/contexts.component";
 
 const routes: Routes = [
   {path: '', component: ModulesComponent},

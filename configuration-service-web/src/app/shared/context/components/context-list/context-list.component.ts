@@ -7,7 +7,7 @@ import {MatSort} from "@angular/material/sort";
 import {ContextService} from "../../service/context.service";
 
 @Component({
-  selector: 'app-context-list',
+  selector: 'app-contexts',
   templateUrl: './context-list.component.html',
   styleUrls: ['./context-list.component.scss']
 })
