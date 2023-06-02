@@ -5,7 +5,7 @@ import {SharedModule} from "../shared/shared.module";
 import {RouterOutlet} from "@angular/router";
 import {HomeComponent} from "../home/home.component";
 import {LayoutRoutingModule} from "./layout-routing.module";
-import {ContextService} from "../shared/context/service/context.service";
+import {ContextListService} from "../shared/context/service/context-list.service";
 import {ContextStorageService} from "../shared/context/storage/context-storage.service";
 import {MatListModule} from "@angular/material/list";
 import { MenuComponent } from './menu/menu.component';

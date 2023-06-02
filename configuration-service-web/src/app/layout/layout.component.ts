@@ -1,5 +1,5 @@
 import {AfterViewInit, ChangeDetectorRef, Component, OnDestroy} from '@angular/core';
-import {ContextService} from "../shared/context/service/context.service";
+import {ContextListService} from "../shared/context/service/context-list.service";
 import {FormControl, Validators} from "@angular/forms";
 import {filter, of, Subscription, switchMap, tap} from "rxjs";
 import {Context} from "../shared/context/model/context";
@@ -21,7 +21,7 @@ export class LayoutComponent implements OnDestroy, AfterViewInit {
 
   private contextSubscription = new Subscription();
 
-  constructor(private contextService: ContextService,
+  constructor(private contextService: ContextListService,
               private contextStorageService: ContextStorageService,
               private cdr: ChangeDetectorRef,
               private dialog: MatDialog,
