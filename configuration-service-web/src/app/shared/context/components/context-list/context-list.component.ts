@@ -1,5 +1,13 @@
-import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
-import {map, Observable} from "rxjs";
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  ViewChild
+} from '@angular/core';
+import {BehaviorSubject, map, Observable, switchMap} from "rxjs";
 import {MatTableDataSource} from "@angular/material/table";
 import {Context} from "../../model/context";
 import {MatPaginator} from "@angular/material/paginator";
@@ -9,11 +17,14 @@ import {ContextListService} from "../../service/context-list.service";
 @Component({
   selector: 'app-context-list',
   templateUrl: './context-list.component.html',
-  styleUrls: ['./context-list.component.scss']
+  styleUrls: ['./context-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ContextListComponent {
 
-  dataSource$: Observable<MatTableDataSource<Context>> = this.contextService.contexts$
+  private sourceSubject = new BehaviorSubject<Context[]>([]);
+
+  dataSource$: Observable<MatTableDataSource<Context>> = this.sourceSubject
     .pipe(
       map((contexts) => this.toDataSource(contexts))
     );
@@ -21,25 +32,23 @@ export class ContextListComponent {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  dataSource: MatTableDataSource<Context>;
-
   readonly displayedColumns = ['position', 'name'];
 
   selected: Context | undefined;
 
-  @Input() public set externalSource(contexts: Context[]) {
-    this.toDataSource(contexts);
+  @Input() public set source(contexts: Context[]) {
+    this.sourceSubject.next(contexts);
   }
 
   @Output() public afterSelection = new EventEmitter<Context>();
 
-  constructor(private contextService: ContextListService) {}
+  constructor() {}
 
   private toDataSource(contexts: Context[]): MatTableDataSource<Context> {
-    this.dataSource = new MatTableDataSource<Context>(contexts);
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
-    return this.dataSource;
+    const dataSource = new MatTableDataSource<Context>(contexts);
+    dataSource.sort = this.sort;
+    dataSource.paginator = this.paginator;
+    return dataSource;
   }
 
   onSelect(context: Context): void {
