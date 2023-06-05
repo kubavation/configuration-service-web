@@ -1,18 +1,9 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-  ViewChild
-} from '@angular/core';
-import {BehaviorSubject, map, Observable, switchMap} from "rxjs";
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
+import {BehaviorSubject, map, Observable} from "rxjs";
 import {MatTableDataSource} from "@angular/material/table";
 import {Context} from "../../model/context";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
-import {ContextListService} from "../../service/context-list.service";
 
 @Component({
   selector: 'app-context-list',
