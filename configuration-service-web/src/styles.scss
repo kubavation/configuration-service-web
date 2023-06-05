@@ -1,5 +1,9 @@
 @import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
 
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
 table {
   width: 80vw !important;
 }
