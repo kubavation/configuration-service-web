@@ -42,7 +42,7 @@ export class ContextsComponent {
       .afterClosed()
       .pipe(
         filter(ctx => !!ctx),
-        switchMap((ctx) => this.saveContext(ctx, this.selected?.name))
+        switchMap((ctx) => this.saveContext(ctx, context?.name))
       ).subscribe(_ => {
           this.snackbarService.success("Context successfully created.");
           },
