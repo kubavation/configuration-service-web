@@ -18,7 +18,7 @@ export class ContextListComponent {
 
   dataSource$: Observable<MatTableDataSource<Context>> = combineLatest([this.sourceSubject, this.filerSubject])
     .pipe(
-      map(([contexts, filter]) => this.toDataSource(contexts, filter))
+      map(([contexts, filterValue]) => this.toDataSource(contexts, filterValue))
     );
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
