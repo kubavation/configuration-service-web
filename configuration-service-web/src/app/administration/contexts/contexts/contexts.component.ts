@@ -1,17 +1,10 @@
-import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
-import {MatTableDataSource} from "@angular/material/table";
-import {MatPaginator} from "@angular/material/paginator";
-import {MatSort} from "@angular/material/sort";
+import {Component, EventEmitter, Output} from '@angular/core';
 import {Context} from "../../../shared/context/model/context";
-import {filter, map, Observable, switchMap, withLatestFrom} from "rxjs";
-import {
-  ConfigurationPatternModalComponent
-} from "../../modules/configuration-pattern/configuration-pattern-modal/configuration-pattern-modal.component";
+import {BehaviorSubject, combineLatest, filter, Observable, switchMap, tap} from "rxjs";
 import {ContextService} from "./service/context.service";
 import {MatDialog} from "@angular/material/dialog";
 import {SnackbarService} from "../../../shared/snackbar/snackbar.service";
 import {ContextModalComponent} from "./context-modal/context-modal.component";
-import {ConfigPattern} from "../../modules/model/config-pattern";
 import {ConfirmationService} from "../../../shared/components/confirmation-modal/confirmation.service";
 
 @Component({
@@ -21,43 +14,28 @@ import {ConfirmationService} from "../../../shared/components/confirmation-modal
 })
 export class ContextsComponent {
 
-  dataSource$: Observable<MatTableDataSource<Context>> = this.contextService.contexts$
-    .pipe(
-      map((contexts) => this.toDataSource(contexts))
-    );
-
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
-
-  dataSource: MatTableDataSource<Context>;
-
-  readonly displayedColumns = ['position', 'name'];
-
   selected: Context | undefined;
 
   @Output() public afterSelection = new EventEmitter<Context>();
+
+  private refreshSubject = new BehaviorSubject<void>(null);
+
+  contexts$ = this.refreshSubject
+    .pipe(
+      switchMap(_ => this.contextService.contexts$)
+    );
 
   constructor(private contextService: ContextService,
               private dialog: MatDialog,
               private confirmationService: ConfirmationService,
               private snackbarService: SnackbarService) {}
 
-  private toDataSource(contexts: Context[]): MatTableDataSource<Context> {
-    this.dataSource = new MatTableDataSource<Context>(contexts);
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
-    return this.dataSource;
-  }
 
   applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    // const filterValue = (event.target as HTMLInputElement).value;
+    // this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  onSelect(context: Context): void {
-    this.selected = context;
-    this.afterSelection.emit(context);
-  }
 
   openModal(context: Context | undefined = null): void {
     this.dialog.open(ContextModalComponent, {
@@ -67,10 +45,11 @@ export class ContextsComponent {
       .afterClosed()
       .pipe(
         filter(ctx => !!ctx),
-        switchMap((ctx) => this.saveContext(ctx, this.selected?.name))
+        switchMap((ctx) => this.saveContext(ctx, context?.name))
       ).subscribe(_ => {
           this.snackbarService.success("Context successfully created.");
-          },
+          this.refreshSubject.next();
+        },
         error => this.snackbarService.error("Error while creating configuration pattern.")
       );
   }
@@ -86,6 +65,7 @@ export class ContextsComponent {
       )
       .subscribe(_ => {
         this.snackbarService.success("Context successfully deleted.");
+        this.refreshSubject.next();
       }, error => this.snackbarService.error("Error while deleting context."));
   }
 
