@@ -1,12 +1,15 @@
-<div>
-  <mat-form-field>
-    <mat-label>Filter</mat-label>
-    <input matInput (keyup)="applyFilter($event)">
-  </mat-form-field>
-  <div class="action-container">
-    <button mat-raised-button (click)="openModal()">Add</button>
-    <button mat-raised-button (click)="openModal(selected)" [disabled]="!selected">Edit</button>
-    <button mat-raised-button (click)="openConfirmationModal()" [disabled]="!selected">Delete</button>
-  </div>
-  <app-context-list [source]="contexts$ | async" (afterSelection)="selected = $event"></app-context-list>
-</div>
+<mat-card>
+  <mat-card-header>
+    <h1>Contexts</h1>
+  </mat-card-header>
+  <mat-card-content>
+    <div>
+      <div class="action-container">
+        <button mat-raised-button (click)="openModal()">Add</button>
+        <button mat-raised-button (click)="openModal(selected)" [disabled]="!selected">Edit</button>
+        <button mat-raised-button (click)="openConfirmationModal()" [disabled]="!selected">Delete</button>
+      </div>
+      <app-context-list [source]="contexts$ | async" (afterSelection)="selected = $event"></app-context-list>
+    </div>
+  </mat-card-content>
+</mat-card>

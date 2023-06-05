@@ -1,13 +1,12 @@
 import {AfterViewInit, ChangeDetectorRef, Component, OnDestroy} from '@angular/core';
 import {ContextListService} from "../shared/context/service/context-list.service";
 import {FormControl, Validators} from "@angular/forms";
-import {BehaviorSubject, filter, map, Observable, of, Subscription, switchMap, tap} from "rxjs";
+import {BehaviorSubject, filter, Subscription, tap} from "rxjs";
 import {Context} from "../shared/context/model/context";
 import {ContextStorageService} from "../shared/context/storage/context-storage.service";
 import {ContextBsService} from "../shared/context/service/context-bs.service";
 import {MatDialog} from "@angular/material/dialog";
 import {ContextModalComponent} from "../shared/context/components/context-modal/context-modal.component";
-import {ActivatedRoute, UrlSegment} from "@angular/router";
 import {Location} from "@angular/common";
 
 @Component({

@@ -1,5 +1,9 @@
 @import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
 
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
 table {
   width: 80vw !important;
 }
@@ -35,9 +39,11 @@ table {
 .action-container {
   display: flex;
   justify-content: flex-start;
-  gap: 5px;
+  gap: 1vw;
   margin-top: 2vh;
   margin-bottom: 2vh;
+  padding: 2vh;
+  border: 2px solid darkgrey;
 }
 
 .w-100 {

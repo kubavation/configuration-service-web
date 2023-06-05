@@ -10,6 +10,7 @@ import {ContextsComponent} from "./contexts/contexts/contexts.component";
 import { ModuleModalComponent } from './modules/module-modal/module-modal.component';
 import { ContextModalComponent } from './contexts/contexts/context-modal/context-modal.component';
 import {ContextService} from "./contexts/contexts/service/context.service";
+import {MatCardModule} from "@angular/material/card";
 
 
 
@@ -22,11 +23,12 @@ import {ContextService} from "./contexts/contexts/service/context.service";
     ModuleModalComponent,
     ContextModalComponent
   ],
-  imports: [
-    CommonModule,
-    SharedModule,
-    AdministrationRoutingModule
-  ],
+    imports: [
+        CommonModule,
+        SharedModule,
+        AdministrationRoutingModule,
+        MatCardModule
+    ],
   exports: [
     ContextsComponent
   ],

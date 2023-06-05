@@ -31,12 +31,6 @@ export class ContextsComponent {
               private snackbarService: SnackbarService) {}
 
 
-  applyFilter(event: Event) {
-    // const filterValue = (event.target as HTMLInputElement).value;
-    // this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
-
-
   openModal(context: Context | undefined = null): void {
     this.dialog.open(ContextModalComponent, {
       data: context,
