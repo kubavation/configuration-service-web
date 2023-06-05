@@ -35,9 +35,11 @@ table {
 .action-container {
   display: flex;
   justify-content: flex-start;
-  gap: 5px;
+  gap: 1vw;
   margin-top: 2vh;
   margin-bottom: 2vh;
+  padding: 2vh;
+  border: 2px solid darkgrey;
 }
 
 .w-100 {
