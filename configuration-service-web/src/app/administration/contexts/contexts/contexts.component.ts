@@ -1,9 +1,6 @@
-import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
-import {MatTableDataSource} from "@angular/material/table";
-import {MatPaginator} from "@angular/material/paginator";
-import {MatSort} from "@angular/material/sort";
+import {Component, EventEmitter, Output} from '@angular/core';
 import {Context} from "../../../shared/context/model/context";
-import {filter, map, Observable, switchMap} from "rxjs";
+import {BehaviorSubject, combineLatest, filter, Observable, switchMap, tap} from "rxjs";
 import {ContextService} from "./service/context.service";
 import {MatDialog} from "@angular/material/dialog";
 import {SnackbarService} from "../../../shared/snackbar/snackbar.service";
@@ -17,10 +14,16 @@ import {ConfirmationService} from "../../../shared/components/confirmation-modal
 })
 export class ContextsComponent {
 
-  contexts$ = this.contextService.contexts$;
   selected: Context | undefined;
 
   @Output() public afterSelection = new EventEmitter<Context>();
+
+  private refreshSubject = new BehaviorSubject<void>(null);
+
+  contexts$ = this.refreshSubject
+    .pipe(
+      switchMap(_ => this.contextService.contexts$)
+    );
 
   constructor(private contextService: ContextService,
               private dialog: MatDialog,
@@ -45,7 +48,8 @@ export class ContextsComponent {
         switchMap((ctx) => this.saveContext(ctx, context?.name))
       ).subscribe(_ => {
           this.snackbarService.success("Context successfully created.");
-          },
+          this.refreshSubject.next();
+        },
         error => this.snackbarService.error("Error while creating configuration pattern.")
       );
   }
@@ -61,6 +65,7 @@ export class ContextsComponent {
       )
       .subscribe(_ => {
         this.snackbarService.success("Context successfully deleted.");
+        this.refreshSubject.next();
       }, error => this.snackbarService.error("Error while deleting context."));
   }
 
