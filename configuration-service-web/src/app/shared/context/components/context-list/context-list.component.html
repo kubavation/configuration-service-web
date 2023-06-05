@@ -1,4 +1,8 @@
 <div class="mat-elevation-z8">
+  <mat-form-field>
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)">
+  </mat-form-field>
   <table mat-table [dataSource]="dataSource$ | async" matSort>
 
     <ng-container matColumnDef="position">

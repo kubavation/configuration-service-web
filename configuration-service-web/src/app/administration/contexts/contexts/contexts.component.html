@@ -1,8 +1,4 @@
 <div>
-  <mat-form-field>
-    <mat-label>Filter</mat-label>
-    <input matInput (keyup)="applyFilter($event)">
-  </mat-form-field>
   <div class="action-container">
     <button mat-raised-button (click)="openModal()">Add</button>
     <button mat-raised-button (click)="openModal(selected)" [disabled]="!selected">Edit</button>
