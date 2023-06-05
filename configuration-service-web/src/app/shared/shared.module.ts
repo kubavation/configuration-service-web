@@ -22,6 +22,7 @@ import {ContextListService} from "./context/service/context-list.service";
 import {ContextStorageService} from "./context/storage/context-storage.service";
 import { ContextListComponent } from './context/components/context-list/context-list.component';
 import { ContextModalComponent } from './context/components/context-modal/context-modal.component';
+import {MatCardModule} from "@angular/material/card";
 
 
 
@@ -49,6 +50,7 @@ import { ContextModalComponent } from './context/components/context-modal/contex
     MatSnackBarModule,
     MatCheckboxModule,
     MatExpansionModule,
+    MatCardModule,
   ],
   exports: [
     MatToolbarModule,
