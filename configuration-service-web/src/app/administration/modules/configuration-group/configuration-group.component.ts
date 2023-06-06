@@ -51,7 +51,7 @@ export class ConfigurationGroupComponent {
   }
 
   private toDataSource(configurationGroups: ConfigurationGroup[]): MatTableDataSource<ConfigurationGroup> {
-    this.dataSource = new MatTableDataSource<ConfigPattern>(configurationGroups);
+    this.dataSource = new MatTableDataSource<ConfigurationGroup>(configurationGroups);
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     return this.dataSource;
