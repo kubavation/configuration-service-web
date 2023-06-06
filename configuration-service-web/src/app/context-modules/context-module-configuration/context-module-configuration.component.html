@@ -1,4 +1,4 @@
-<div>
+<div class="mat-elevation-z8 table-container">
   <div class="configuration-action-container">
     <mat-slide-toggle [formControl]="editContextControl">Edit mode {{editContextValue ? 'enabled' : 'disabled'}}</mat-slide-toggle>
     <button mat-raised-button (click)="saveConfig()" [disabled]="!editContextValue">Save</button>
