@@ -32,6 +32,8 @@ export class ContextListComponent {
     this.sourceSubject.next(contexts);
   }
 
+  @Input() public width: number = 60;
+
   @Output() public afterSelection = new EventEmitter<Context>();
 
   constructor() {}
