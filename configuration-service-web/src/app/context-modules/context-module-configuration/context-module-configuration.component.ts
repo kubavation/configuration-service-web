@@ -23,11 +23,18 @@ export class ContextModuleConfigurationComponent implements OnDestroy {
     configurations: this.fb.array<Configuration>([])
   })
 
-  dataSource$ = combineLatest([this.activatedRoute.params, this.contextBsService.context$])
+  context$ = this.contextBsService.context$;
+
+  module$ = this.activatedRoute.params
     .pipe(
-      filter(([params, _]) => !!params['module']),
-      tap(([params, _]) => this.module = params['module']),
-      switchMap(([params, context]) => this.contextModuleConfigurationService.moduleConfiguration(context.name, params['module'])
+      filter(params => !!params['module']),
+      map(params => params['module'])
+    )
+
+  dataSource$ = combineLatest([this.module$, this.context$])
+    .pipe(
+      tap(([module, _]) => this.module = module),
+      switchMap(([module, context]) => this.contextModuleConfigurationService.moduleConfiguration(context.name, module)
         .pipe(
           catchError(_ => {
             this.router.navigateByUrl('/modules');
