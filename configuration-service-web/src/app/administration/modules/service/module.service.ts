@@ -50,7 +50,7 @@ export class ModuleService {
   }
 
   public editConfigurationGroup(module: string, configGroupName: string, configurationGroup: ConfigurationGroup): Observable<void> {
-    return this.http.patch<void>(`${environment.url}/modules/${module}/configuration-groups/${configGroupName}`, configurationGroup);
+    return this.http.put<void>(`${environment.url}/modules/${module}/configuration-groups/${configGroupName}`, configurationGroup);
   }
 
   public deleteConfigurationGroup(module: string, configGroup: string): Observable<void> {
