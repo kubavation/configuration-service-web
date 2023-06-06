@@ -5,7 +5,7 @@ body {
 }
 
 table {
-  width: 80vw !important;
+  width: auto;
 }
 
 .selected-row {
@@ -53,3 +53,8 @@ table {
 .w-70 {
   width: 70%;
 }
+
+.table-container {
+  width: 60vw !important;
+}
+

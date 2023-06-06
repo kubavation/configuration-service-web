@@ -9,7 +9,7 @@
         <button mat-raised-button (click)="openModal(selected)" [disabled]="!selected">Edit</button>
         <button mat-raised-button (click)="openConfirmationModal()" [disabled]="!selected">Delete</button>
       </div>
-      <app-context-list [source]="contexts$ | async" (afterSelection)="selected = $event"></app-context-list>
+      <app-context-list [width]="80" [source]="contexts$ | async" (afterSelection)="selected = $event"></app-context-list>
     </div>
   </mat-card-content>
 </mat-card>

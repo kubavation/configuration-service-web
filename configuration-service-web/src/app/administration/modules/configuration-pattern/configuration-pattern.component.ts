@@ -20,11 +20,16 @@ export class ConfigurationPatternComponent {
 
   private refreshSubject$ = new BehaviorSubject<void>(null);
 
-  dataSource$ = combineLatest([this.route.params, this.refreshSubject$])
+  module$: Observable<string> = this.route.params
     .pipe(
-      map(([params, _]) => params),
       filter(params => !!params['module']),
-      switchMap(params => this.moduleService.configurationPatterns(params['module'])),
+      map(params => params['module'])
+    )
+
+  dataSource$ = combineLatest([this.module$, this.refreshSubject$])
+    .pipe(
+      map(([module, _]) => module),
+      switchMap(module => this.moduleService.configurationPatterns(module)),
       map(patterns => this.toDataSource(patterns))
     )
 

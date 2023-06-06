@@ -2,6 +2,14 @@
   display: flex;
   justify-content: space-between;
   gap: 5px;
+  padding-top: 2vh;
+  padding-left: 1vw;
+  padding-right: 1vw;
   margin-top: 2vh;
   margin-bottom: 2vh;
+}
+
+
+.table-container {
+  width: 80vw !important;
 }
