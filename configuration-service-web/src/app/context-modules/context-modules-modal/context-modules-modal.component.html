@@ -1,7 +1,7 @@
 <h1 mat-dialog-title>Modules for context {{context}}</h1>
 <div mat-dialog-content>
   <form [formGroup]="form">
-  <div class="mat-elevation-z8">
+  <div class="mat-elevation-z8 table-container">
     <table mat-table [dataSource]="dataSource$ | async" matSort >
 
       <ng-container matColumnDef="position">
