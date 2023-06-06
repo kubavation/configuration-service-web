@@ -53,4 +53,8 @@ export class ModuleService {
     return this.http.patch<void>(`${environment.url}/modules/${module}/configuration-groups/${configGroupName}`, configurationGroup);
   }
 
+  public deleteConfigurationGroup(module: string, configGroup: string): Observable<void> {
+    return this.http.delete<void>(`${environment.url}/modules/${module}/configuration-groups/${configGroup}`);
+  }
+
 }

@@ -1,5 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
-import {BehaviorSubject, combineLatest, filter, map, Observable, switchMap} from "rxjs";
+import {BehaviorSubject, combineLatest, filter, map, Observable, switchMap, withLatestFrom} from "rxjs";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {MatTableDataSource} from "@angular/material/table";
@@ -10,6 +10,10 @@ import {ConfirmationService} from "../../../shared/components/confirmation-modal
 import {SnackbarService} from "../../../shared/snackbar/snackbar.service";
 import {MatDialog} from "@angular/material/dialog";
 import {ConfigurationGroup} from "./model/configuration-group";
+import {
+  ConfigurationPatternModalComponent
+} from "../configuration-pattern/configuration-pattern-modal/configuration-pattern-modal.component";
+import {ConfigurationGroupModalComponent} from "./configuration-group-modal/configuration-group-modal.component";
 
 @Component({
   selector: 'app-configuration-group',
@@ -59,7 +63,19 @@ export class ConfigurationGroupComponent {
 
 
   openModal(configurationGroup: ConfigurationGroup | undefined = null): void {
-
+    this.dialog.open(ConfigurationGroupModalComponent, {
+      data: configurationGroup,
+      width: '40vw'
+    })
+      .afterClosed()
+      .pipe(
+        filter(pattern => !!pattern),
+        withLatestFrom(this.route.params),
+        switchMap(([pattern, params]) => this.saveConfigurationGroup(params['module'], pattern, configurationGroup?.name))
+      ).subscribe(_ => {
+      this.snackbarService.success("Configuration group successfully created.");
+      this.refreshSubject$.next();
+    }, error => this.snackbarService.error("Error while creating configuration group."));
   }
 
   onSelect(row: ConfigurationGroup): void {
@@ -74,7 +90,19 @@ export class ConfigurationGroupComponent {
   }
 
   openConfirmationModal(): void {
-
+    this.confirmationService.open({
+      content: `Delete config group ${this.selected?.name}?`
+    })
+      .afterClosed()
+      .pipe(
+        filter(result => !!result),
+        withLatestFrom(this.route.params),
+        switchMap(([_, params]) => this.moduleService.deleteConfigurationGroup(params['module'], this.selected?.name))
+      )
+      .subscribe(_ => {
+        this.snackbarService.success("Configuration pattern successfully deleted.");
+        this.refreshSubject$.next();
+      }, error => this.snackbarService.error("Error while deleting configuration pattern."));
   }
 
 }

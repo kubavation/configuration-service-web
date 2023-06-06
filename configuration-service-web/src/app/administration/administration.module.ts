@@ -12,6 +12,7 @@ import { ContextModalComponent } from './contexts/contexts/context-modal/context
 import {ContextService} from "./contexts/contexts/service/context.service";
 import {MatCardModule} from "@angular/material/card";
 import { ConfigurationGroupComponent } from './modules/configuration-group/configuration-group.component';
+import { ConfigurationGroupModalComponent } from './modules/configuration-group/configuration-group-modal/configuration-group-modal.component';
 
 
 
@@ -23,7 +24,8 @@ import { ConfigurationGroupComponent } from './modules/configuration-group/confi
     ContextsComponent,
     ModuleModalComponent,
     ContextModalComponent,
-    ConfigurationGroupComponent
+    ConfigurationGroupComponent,
+    ConfigurationGroupModalComponent
   ],
     imports: [
         CommonModule,
