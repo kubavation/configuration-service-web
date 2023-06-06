@@ -1,15 +1,13 @@
 <mat-card>
   <mat-card-header>
-    <h1>Modules</h1>
+    <h1>Configuration groups for module {{module$ | async}}</h1>
   </mat-card-header>
   <mat-card-content>
-    <div class="table-container">
+    <div class="mat-elevation-z8 table-container">
       <div class="action-container">
         <button mat-raised-button (click)="openModal()">Add</button>
         <button mat-raised-button (click)="openModal(selected)" [disabled]="!selected">Edit</button>
         <button mat-raised-button (click)="openConfirmationModal()" [disabled]="!selected">Delete</button>
-        <button mat-raised-button routerLink="{{selected?.name}}/configuration-pattern" [disabled]="!selected">Configuration pattern</button>
-        <button mat-raised-button routerLink="{{selected?.name}}/configuration-groups" [disabled]="!selected">Configuration groups</button>
       </div>
       <div class="mat-elevation-z8">
         <table mat-table [dataSource]="dataSource$ | async" matSort>
@@ -47,6 +45,5 @@
         <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
       </div>
     </div>
-
   </mat-card-content>
 </mat-card>

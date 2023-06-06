@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import {Module} from "../model/module";
 import {environment} from "../../../../environments/environment";
 import {ConfigPattern} from "../model/config-pattern";
+import {ConfigurationGroup} from "../configuration-group/model/configuration-group";
 
 @Injectable()
 export class ModuleService {
@@ -38,6 +39,22 @@ export class ModuleService {
 
   public deleteConfigurationPattern(module: string, configName: string): Observable<void> {
     return this.http.delete<void>(`${environment.url}/modules/${module}/configuration-pattern/${configName}`);
+  }
+
+  public configurationGroups(module: string): Observable<ConfigurationGroup[]> {
+    return this.http.get<ConfigurationGroup[]>(`${environment.url}/modules/${module}/configuration-groups`);
+  }
+
+  public addConfigurationGroup(module: string, configurationGroup: ConfigurationGroup): Observable<void> {
+    return this.http.patch<void>(`${environment.url}/modules/${module}/configuration-groups`, configurationGroup);
+  }
+
+  public editConfigurationGroup(module: string, configGroupName: string, configurationGroup: ConfigurationGroup): Observable<void> {
+    return this.http.patch<void>(`${environment.url}/modules/${module}/configuration-groups/${configGroupName}`, configurationGroup);
+  }
+
+  public deleteConfigurationGroup(module: string, configGroup: string): Observable<void> {
+    return this.http.delete<void>(`${environment.url}/modules/${module}/configuration-groups/${configGroup}`);
   }
 
 }
