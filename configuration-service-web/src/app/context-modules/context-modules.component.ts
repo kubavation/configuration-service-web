@@ -19,7 +19,9 @@ export class ContextModulesComponent {
 
   private refreshSubject = new BehaviorSubject<void>(null);
 
-  dataSource$ = combineLatest([this.contextBsService.context$, this.refreshSubject])
+  context$ = this.contextBsService.context$
+
+  dataSource$ = combineLatest([this.context$, this.refreshSubject])
     .pipe(
       map(([context, _]) => context),
       switchMap(context => this.contextModulesService.contextModules(context.name)),
