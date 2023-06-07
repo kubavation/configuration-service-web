@@ -46,7 +46,7 @@ export class ModuleService {
   }
 
   public addConfigurationGroup(module: string, configurationGroup: ConfigurationGroup): Observable<void> {
-    return this.http.patch<void>(`${environment.url}/modules/${module}/configuration-groups`, configurationGroup);
+    return this.http.post<void>(`${environment.url}/modules/${module}/configuration-groups`, configurationGroup);
   }
 
   public editConfigurationGroup(module: string, configGroupName: string, configurationGroup: ConfigurationGroup): Observable<void> {
