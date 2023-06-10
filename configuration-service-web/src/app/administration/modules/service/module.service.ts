@@ -57,4 +57,8 @@ export class ModuleService {
     return this.http.delete<void>(`${environment.url}/modules/${module}/configuration-groups/${configGroup}`);
   }
 
+  public configurationGroupPatterns(module: string, configGroup: string): Observable<ConfigPattern[]> {
+    return this.http.get<ConfigPattern[]>(`${environment.url}/modules/${module}/configuration-groups/${configGroup}/patterns`);
+  }
+
 }
