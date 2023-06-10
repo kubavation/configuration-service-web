@@ -46,15 +46,19 @@ export class ModuleService {
   }
 
   public addConfigurationGroup(module: string, configurationGroup: ConfigurationGroup): Observable<void> {
-    return this.http.patch<void>(`${environment.url}/modules/${module}/configuration-groups`, configurationGroup);
+    return this.http.post<void>(`${environment.url}/modules/${module}/configuration-groups`, configurationGroup);
   }
 
   public editConfigurationGroup(module: string, configGroupName: string, configurationGroup: ConfigurationGroup): Observable<void> {
-    return this.http.patch<void>(`${environment.url}/modules/${module}/configuration-groups/${configGroupName}`, configurationGroup);
+    return this.http.put<void>(`${environment.url}/modules/${module}/configuration-groups/${configGroupName}`, configurationGroup);
   }
 
   public deleteConfigurationGroup(module: string, configGroup: string): Observable<void> {
     return this.http.delete<void>(`${environment.url}/modules/${module}/configuration-groups/${configGroup}`);
+  }
+
+  public configurationGroupPatterns(module: string, configGroup: string): Observable<ConfigPattern[]> {
+    return this.http.get<ConfigPattern[]>(`${environment.url}/modules/${module}/configuration-groups/${configGroup}/patterns`);
   }
 
 }
