@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, Input, ViewChild} from '@angular/core';
 import {ModuleService} from "../service/module.service";
 import {ActivatedRoute} from "@angular/router";
 import {BehaviorSubject, combineLatest, filter, map, Observable, switchMap, withLatestFrom} from "rxjs";
@@ -33,6 +33,10 @@ export class ConfigurationPatternComponent {
       switchMap(([module, _, configGroup]) => this.getPatterns(module, configGroup)),
       map(patterns => this.toDataSource(patterns))
     )
+
+  @Input() set configGroup(configGroup: ConfigurationGroup) {
+    this.configGroupSubject$.next(configGroup);
+  }
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
