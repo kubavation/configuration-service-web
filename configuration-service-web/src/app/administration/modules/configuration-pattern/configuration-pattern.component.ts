@@ -10,6 +10,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {ConfigurationPatternModalComponent} from "./configuration-pattern-modal/configuration-pattern-modal.component";
 import {SnackbarService} from "../../../shared/snackbar/snackbar.service";
 import {ConfirmationService} from "../../../shared/components/confirmation-modal/confirmation.service";
+import {ConfigurationGroup} from "../configuration-group/model/configuration-group";
 
 @Component({
   selector: 'app-configuration-pattern',
@@ -19,6 +20,7 @@ import {ConfirmationService} from "../../../shared/components/confirmation-modal
 export class ConfigurationPatternComponent {
 
   private refreshSubject$ = new BehaviorSubject<void>(null);
+  private configGroupSubject$ = new BehaviorSubject<ConfigurationGroup>(null);
 
   module$: Observable<string> = this.route.params
     .pipe(
@@ -26,10 +28,9 @@ export class ConfigurationPatternComponent {
       map(params => params['module'])
     )
 
-  dataSource$ = combineLatest([this.module$, this.refreshSubject$])
+  dataSource$ = combineLatest([this.module$, this.refreshSubject$, this.configGroupSubject$])
     .pipe(
-      map(([module, _]) => module),
-      switchMap(module => this.moduleService.configurationPatterns(module)),
+      switchMap(([module, _, configGroup]) => this.getPatterns(module, configGroup)),
       map(patterns => this.toDataSource(patterns))
     )
 
@@ -99,6 +100,15 @@ export class ConfigurationPatternComponent {
         this.snackbarService.success("Configuration pattern successfully deleted.");
         this.refreshSubject$.next();
       }, error => this.snackbarService.error("Error while deleting configuration pattern."));
+  }
+
+  private getPatterns(module: string, configurationGroup?: ConfigurationGroup): Observable<ConfigPattern[]> {
+
+    if (configurationGroup) {
+      return this.moduleService.configurationGroupPatterns(module, configurationGroup.name)
+    }
+
+    return this.moduleService.configurationPatterns(module)
   }
 
 }
