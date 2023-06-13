@@ -1,9 +1,12 @@
 import {Component, Inject} from '@angular/core';
-import {FormBuilder, Validators} from "@angular/forms";
+import {AbstractControl, AsyncValidatorFn, FormBuilder, ValidationErrors, Validators} from "@angular/forms";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {FormMode} from "../../../../shared/forms/form-mode";
 import {DialogComponent} from "../../../../shared/components/dialog-component";
 import {Context} from "../../../../shared/context/model/context";
+import {map, Observable} from "rxjs";
+import {ContextValidatorService} from "../service/context-validator.service";
+
 
 @Component({
   selector: 'app-context-modal',
@@ -12,12 +15,28 @@ import {Context} from "../../../../shared/context/model/context";
 })
 export class ContextModalComponent extends DialogComponent<ContextModalComponent> {
 
+  static contextNameValidator(service: ContextValidatorService): AsyncValidatorFn {
+    return (control: AbstractControl): Observable<ValidationErrors> => {
+      return service.contextAlreadyExists(control.value)
+        .pipe(
+          map(result => result ? {contextAlreadyExists: true} : null)
+        )
+    }
+  }
+
   form = this.fb.group({
-    name: ['', Validators.required]
+    name: ['',
+      {
+        validators: [Validators.required],
+        asyncValidators: [ContextModalComponent.contextNameValidator(this.contextValidatorService)],
+        updateOn: 'blur'
+      }
+    ]
   })
 
   constructor(public override dialogRef: MatDialogRef<ContextModalComponent>,
               @Inject(MAT_DIALOG_DATA) public data: Context | undefined,
+              private contextValidatorService: ContextValidatorService,
               private fb: FormBuilder) {
     super(dialogRef);
 

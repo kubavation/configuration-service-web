@@ -6,6 +6,11 @@
       <mat-form-field class="w-100">
         <mat-label>Name</mat-label>
         <input formControlName="name" matInput>
+        <mat-error
+          *ngIf="form.get('name').hasError('contextAlreadyExists')"
+        >
+          Context with this name <strong>already exists</strong>
+        </mat-error>
       </mat-form-field>
   </div>
 </div>
