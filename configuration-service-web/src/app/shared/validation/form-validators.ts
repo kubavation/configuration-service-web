@@ -8,10 +8,10 @@ export class FormValidators {
     return (control: AbstractControl): Observable<ValidationErrors> => {
       return service.alreadyExists(control.value)
         .pipe(
-          map(result => result ? {contextAlreadyExists: true} : null)
+          map(result => result ? {alreadyExists: true} : null)
         )
     }
   }
-  
+
 
 }
