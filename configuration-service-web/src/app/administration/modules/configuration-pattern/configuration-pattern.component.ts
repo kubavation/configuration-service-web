@@ -76,6 +76,6 @@ export class ConfigurationPatternComponent {
         this.refreshSubject$.next();
       }, error => this.snackbarService.error("Error while deleting configuration pattern."));
   }
-  
+
 
 }
