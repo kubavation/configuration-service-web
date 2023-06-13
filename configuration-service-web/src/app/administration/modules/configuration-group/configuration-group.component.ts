@@ -3,16 +3,12 @@ import {BehaviorSubject, combineLatest, filter, map, Observable, switchMap, with
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {MatTableDataSource} from "@angular/material/table";
-import {ConfigPattern} from "../model/config-pattern";
 import {ModuleService} from "../service/module.service";
 import {ActivatedRoute} from "@angular/router";
 import {ConfirmationService} from "../../../shared/components/confirmation-modal/confirmation.service";
 import {SnackbarService} from "../../../shared/snackbar/snackbar.service";
 import {MatDialog} from "@angular/material/dialog";
 import {ConfigurationGroup} from "./model/configuration-group";
-import {
-  ConfigurationPatternModalComponent
-} from "../configuration-pattern/configuration-pattern-modal/configuration-pattern-modal.component";
 import {ConfigurationGroupModalComponent} from "./configuration-group-modal/configuration-group-modal.component";
 
 @Component({
@@ -23,6 +19,7 @@ import {ConfigurationGroupModalComponent} from "./configuration-group-modal/conf
 export class ConfigurationGroupComponent {
 
   private refreshSubject$ = new BehaviorSubject<void>(null);
+  private configGroupSubject$ = new BehaviorSubject<ConfigurationGroup>(null);
 
   module$: Observable<string> = this.route.params
     .pipe(
@@ -35,6 +32,12 @@ export class ConfigurationGroupComponent {
       map(([module, _]) => module),
       switchMap(module => this.moduleService.configurationGroups(module)),
       map(groups => this.toDataSource(groups))
+    )
+
+  patterns$ = combineLatest([this.module$, this.configGroupSubject$, this.refreshSubject$])
+    .pipe(
+      filter(([module, group, _]) => !!group),
+      switchMap(([module, configGroup, _]) => this.moduleService.configurationGroupPatterns(module, configGroup.name))
     )
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -80,6 +83,7 @@ export class ConfigurationGroupComponent {
 
   onSelect(row: ConfigurationGroup): void {
     this.selected = row;
+    this.configGroupSubject$.next(row);
   }
 
   private saveConfigurationGroup(module: string, configurationGroup: ConfigurationGroup, configGroupName: string = null): Observable<void> {

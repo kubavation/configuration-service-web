@@ -15,6 +15,7 @@ import { ConfigurationGroupComponent } from './modules/configuration-group/confi
 import { ConfigurationGroupModalComponent } from './modules/configuration-group/configuration-group-modal/configuration-group-modal.component';
 import {ContextValidatorService} from "./contexts/contexts/service/context-validator.service";
 import {ModuleValidatorService} from "./modules/service/module-validator.service";
+import { ConfigurationPatternListComponent } from './modules/configuration-pattern/configuration-pattern-list/configuration-pattern-list.component';
 
 
 
@@ -27,7 +28,8 @@ import {ModuleValidatorService} from "./modules/service/module-validator.service
     ModuleModalComponent,
     ContextModalComponent,
     ConfigurationGroupComponent,
-    ConfigurationGroupModalComponent
+    ConfigurationGroupModalComponent,
+    ConfigurationPatternListComponent
   ],
     imports: [
         CommonModule,

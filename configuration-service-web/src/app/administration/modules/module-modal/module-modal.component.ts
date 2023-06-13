@@ -1,10 +1,9 @@
 import {Component, Inject} from '@angular/core';
 import {DialogComponent} from "../../../shared/components/dialog-component";
-import {AbstractControl, AsyncValidatorFn, FormBuilder, ValidationErrors, Validators} from "@angular/forms";
+import {FormBuilder, Validators} from "@angular/forms";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {ConfigPattern} from "../model/config-pattern";
 import {FormMode} from "../../../shared/forms/form-mode";
-import {map, Observable} from "rxjs";
 import {ModuleValidatorService} from "../service/module-validator.service";
 import {FormValidators} from "../../../shared/validation/form-validators";
 
