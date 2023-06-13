@@ -7,8 +7,7 @@
         <mat-label>Name</mat-label>
         <input formControlName="name" matInput>
         <mat-error
-          *ngIf="contextNameInvalid"
-        >
+          *ngIf="contextNameInvalid">
           Context with this name <strong>already exists</strong>
         </mat-error>
       </mat-form-field>

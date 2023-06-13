@@ -14,6 +14,7 @@ import {MatCardModule} from "@angular/material/card";
 import { ConfigurationGroupComponent } from './modules/configuration-group/configuration-group.component';
 import { ConfigurationGroupModalComponent } from './modules/configuration-group/configuration-group-modal/configuration-group-modal.component';
 import {ContextValidatorService} from "./contexts/contexts/service/context-validator.service";
+import {ModuleValidatorService} from "./modules/service/module-validator.service";
 
 
 
@@ -37,6 +38,6 @@ import {ContextValidatorService} from "./contexts/contexts/service/context-valid
   exports: [
     ContextsComponent
   ],
-  providers: [ModuleService, ContextService, ContextValidatorService]
+  providers: [ModuleService, ContextService, ContextValidatorService, ModuleValidatorService]
 })
 export class AdministrationModule { }
