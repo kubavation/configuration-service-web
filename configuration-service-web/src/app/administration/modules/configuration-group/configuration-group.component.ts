@@ -23,6 +23,7 @@ import {ConfigurationGroupModalComponent} from "./configuration-group-modal/conf
 export class ConfigurationGroupComponent {
 
   private refreshSubject$ = new BehaviorSubject<void>(null);
+  private configGroupSubject$ = new BehaviorSubject<ConfigurationGroup>(null);
 
   module$: Observable<string> = this.route.params
     .pipe(
@@ -35,6 +36,12 @@ export class ConfigurationGroupComponent {
       map(([module, _]) => module),
       switchMap(module => this.moduleService.configurationGroups(module)),
       map(groups => this.toDataSource(groups))
+    )
+
+  patterns$ = combineLatest([this.module$, this.configGroupSubject$, this.refreshSubject$])
+    .pipe(
+      filter(([module, group, _]) => !!group),
+      switchMap(([module, configGroup, _]) => this.moduleService.configurationGroupPatterns(module, configGroup.name))
     )
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -80,6 +87,7 @@ export class ConfigurationGroupComponent {
 
   onSelect(row: ConfigurationGroup): void {
     this.selected = row;
+    this.configGroupSubject$.next(row);
   }
 
   private saveConfigurationGroup(module: string, configurationGroup: ConfigurationGroup, configGroupName: string = null): Observable<void> {
