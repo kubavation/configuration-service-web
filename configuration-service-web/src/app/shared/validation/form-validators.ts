@@ -2,7 +2,7 @@ import {AbstractControl, AsyncValidatorFn, ValidationErrors} from "@angular/form
 import {map, Observable} from "rxjs";
 import {AlreadyExistsValidation} from "./already-exists-validation";
 
-export class Validators {
+export class FormValidators {
 
   static alreadyExistsValidator(service: AlreadyExistsValidation): AsyncValidatorFn {
     return (control: AbstractControl): Observable<ValidationErrors> => {
