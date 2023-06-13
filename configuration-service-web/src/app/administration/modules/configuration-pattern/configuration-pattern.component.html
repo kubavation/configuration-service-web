@@ -9,7 +9,9 @@
         <button mat-raised-button (click)="openModal(selected)" [disabled]="!selected">Edit</button>
         <button mat-raised-button (click)="openConfirmationModal()" [disabled]="!selected">Delete</button>
       </div>
-      <app-configuration-pattern-list></app-configuration-pattern-list>
+      <app-configuration-pattern-list [dataSource]="patterns$ | async"
+                                      (afterSelection)="selected = $event">
+      </app-configuration-pattern-list>
     </div>
   </mat-card-content>
 </mat-card>

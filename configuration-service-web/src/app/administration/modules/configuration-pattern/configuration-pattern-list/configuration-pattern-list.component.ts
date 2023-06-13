@@ -24,6 +24,8 @@ export class ConfigurationPatternListComponent {
 
   readonly displayedColumns = ['position', 'name', 'description', 'defaultValue'];
 
+  selected: ConfigPattern | undefined;
+
   constructor() {
   }
 
@@ -36,6 +38,7 @@ export class ConfigurationPatternListComponent {
 
   onSelect(row: ConfigPattern): void {
     this.afterSelection.emit(row);
+    this.selected = row;
   }
 
 }

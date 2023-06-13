@@ -28,38 +28,22 @@ export class ConfigurationPatternComponent {
       map(params => params['module'])
     )
 
-  dataSource$ = combineLatest([this.module$, this.refreshSubject$, this.configGroupSubject$])
+  patterns$ = combineLatest([this.module$, this.refreshSubject$, this.configGroupSubject$])
     .pipe(
       switchMap(([module, _, configGroup]) => this.getPatterns(module, configGroup)),
-      map(patterns => this.toDataSource(patterns))
     )
 
   @Input() set configGroup(configGroup: ConfigurationGroup) {
     this.configGroupSubject$.next(configGroup);
   }
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
-
-  dataSource: MatTableDataSource<ConfigPattern>;
-
   selected: ConfigPattern | undefined;
-
-  readonly displayedColumns = ['position', 'name', 'description', 'defaultValue'];
 
   constructor(private moduleService: ModuleService,
               private route: ActivatedRoute,
               private confirmationService: ConfirmationService,
               private snackbarService: SnackbarService,
               private dialog: MatDialog) {
-
-  }
-
-  private toDataSource(configurationPatterns: ConfigPattern[]): MatTableDataSource<ConfigPattern> {
-    this.dataSource = new MatTableDataSource<ConfigPattern>(configurationPatterns);
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
-    return this.dataSource;
   }
 
 
@@ -77,10 +61,6 @@ export class ConfigurationPatternComponent {
         this.snackbarService.success("Configuration pattern successfully created.");
         this.refreshSubject$.next();
       }, error => this.snackbarService.error("Error while creating configuration pattern."));
-  }
-
-  onSelect(row: ConfigPattern): void {
-    this.selected = row;
   }
 
   private saveConfigurationPattern(module: string, configPattern: ConfigPattern, configName: string = null): Observable<void> {
