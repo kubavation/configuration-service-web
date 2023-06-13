@@ -62,5 +62,9 @@ export class ContextModalComponent extends DialogComponent<ContextModalComponent
     return this.mode == FormMode.ADD ? "Add context": `Edit context ${this.form.get('name')?.value}`;
   }
 
+  get contextNameInvalid(): boolean {
+    return this.form.get('name').hasError('contextAlreadyExists');
+  }
+
 
 }
