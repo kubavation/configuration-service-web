@@ -6,10 +6,14 @@
       <mat-form-field class="w-100">
         <mat-label>Name</mat-label>
         <input formControlName="name" matInput>
+        <mat-error
+          *ngIf="contextNameInvalid">
+          Context with this name <strong>already exists</strong>
+        </mat-error>
       </mat-form-field>
   </div>
 </div>
 <div mat-dialog-actions align="end">
   <button mat-button (click)="cancel()">Cancel</button>
-  <button mat-button (click)="save()" cdkFocusInitial>Save</button>
+  <button mat-button [disabled]="!form.valid" (click)="save()" cdkFocusInitial>Save</button>
 </div>

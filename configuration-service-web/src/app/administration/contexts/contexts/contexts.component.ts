@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Output} from '@angular/core';
 import {Context} from "../../../shared/context/model/context";
-import {BehaviorSubject, combineLatest, filter, Observable, switchMap, tap} from "rxjs";
+import {BehaviorSubject, filter, Observable, switchMap} from "rxjs";
 import {ContextService} from "./service/context.service";
 import {MatDialog} from "@angular/material/dialog";
 import {SnackbarService} from "../../../shared/snackbar/snackbar.service";
