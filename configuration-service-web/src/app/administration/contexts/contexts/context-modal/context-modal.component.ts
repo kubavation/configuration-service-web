@@ -6,6 +6,7 @@ import {DialogComponent} from "../../../../shared/components/dialog-component";
 import {Context} from "../../../../shared/context/model/context";
 import {map, Observable} from "rxjs";
 import {ContextValidatorService} from "../service/context-validator.service";
+import {FormValidators} from "../../../../shared/validation/form-validators";
 
 
 @Component({
@@ -15,20 +16,11 @@ import {ContextValidatorService} from "../service/context-validator.service";
 })
 export class ContextModalComponent extends DialogComponent<ContextModalComponent> {
 
-  static contextNameValidator(service: ContextValidatorService): AsyncValidatorFn {
-    return (control: AbstractControl): Observable<ValidationErrors> => {
-      return service.contextAlreadyExists(control.value)
-        .pipe(
-          map(result => result ? {contextAlreadyExists: true} : null)
-        )
-    }
-  }
-
   form = this.fb.group({
     name: ['',
       {
         validators: [Validators.required],
-        asyncValidators: [ContextModalComponent.contextNameValidator(this.contextValidatorService)],
+        asyncValidators: [FormValidators.alreadyExistsValidator(this.contextValidatorService)],
         updateOn: 'blur'
       }
     ]
@@ -63,7 +55,7 @@ export class ContextModalComponent extends DialogComponent<ContextModalComponent
   }
 
   get contextNameInvalid(): boolean {
-    return this.form.get('name').hasError('contextAlreadyExists');
+    return this.form.get('name').hasError('alreadyExists');
   }
 
 

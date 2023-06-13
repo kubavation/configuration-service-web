@@ -6,6 +6,7 @@ import {ConfigPattern} from "../model/config-pattern";
 import {FormMode} from "../../../shared/forms/form-mode";
 import {map, Observable} from "rxjs";
 import {ModuleValidatorService} from "../service/module-validator.service";
+import {FormValidators} from "../../../shared/validation/form-validators";
 
 @Component({
   selector: 'app-module-modal',
@@ -14,19 +15,10 @@ import {ModuleValidatorService} from "../service/module-validator.service";
 })
 export class ModuleModalComponent extends DialogComponent<ModuleModalComponent> {
 
-  static moduleNameValidator(service: ModuleValidatorService): AsyncValidatorFn {
-    return (control: AbstractControl): Observable<ValidationErrors> => {
-      return service.moduleAlreadyExists(control.value)
-        .pipe(
-          map(result => result ? {moduleAlreadyExists: true} : null)
-        )
-    }
-  }
-
   form = this.fb.group({
     name: ['', {
       validators: [Validators.required],
-      asyncValidators: [ModuleModalComponent.moduleNameValidator(this.moduleValidationService)],
+      asyncValidators: [FormValidators.alreadyExistsValidator(this.moduleValidationService)],
       updateOn: 'blur'
     }],
     description: ['', Validators.required]
@@ -61,7 +53,7 @@ export class ModuleModalComponent extends DialogComponent<ModuleModalComponent> 
   }
 
   get moduleNameInvalid(): boolean {
-    return this.form.get('name').hasError('moduleAlreadyExists');
+    return this.form.get('name').hasError('alreadyExists');
   }
 
 
