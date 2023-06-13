@@ -1,16 +1,12 @@
-import {Component, Input, ViewChild} from '@angular/core';
+import {Component} from '@angular/core';
 import {ModuleService} from "../service/module.service";
 import {ActivatedRoute} from "@angular/router";
 import {BehaviorSubject, combineLatest, filter, map, Observable, switchMap, withLatestFrom} from "rxjs";
-import {MatPaginator} from "@angular/material/paginator";
-import {MatSort} from "@angular/material/sort";
-import {MatTableDataSource} from "@angular/material/table";
 import {ConfigPattern} from "../model/config-pattern";
 import {MatDialog} from "@angular/material/dialog";
 import {ConfigurationPatternModalComponent} from "./configuration-pattern-modal/configuration-pattern-modal.component";
 import {SnackbarService} from "../../../shared/snackbar/snackbar.service";
 import {ConfirmationService} from "../../../shared/components/confirmation-modal/confirmation.service";
-import {ConfigurationGroup} from "../configuration-group/model/configuration-group";
 
 @Component({
   selector: 'app-configuration-pattern',
@@ -20,7 +16,6 @@ import {ConfigurationGroup} from "../configuration-group/model/configuration-gro
 export class ConfigurationPatternComponent {
 
   private refreshSubject$ = new BehaviorSubject<void>(null);
-  private configGroupSubject$ = new BehaviorSubject<ConfigurationGroup>(null);
 
   module$: Observable<string> = this.route.params
     .pipe(
@@ -28,14 +23,10 @@ export class ConfigurationPatternComponent {
       map(params => params['module'])
     )
 
-  patterns$ = combineLatest([this.module$, this.refreshSubject$, this.configGroupSubject$])
+  patterns$ = combineLatest([this.module$, this.refreshSubject$])
     .pipe(
-      switchMap(([module, _, configGroup]) => this.getPatterns(module, configGroup)),
+      switchMap(([module, _]) => this.moduleService.configurationPatterns(module)),
     )
-
-  @Input() set configGroup(configGroup: ConfigurationGroup) {
-    this.configGroupSubject$.next(configGroup);
-  }
 
   selected: ConfigPattern | undefined;
 
@@ -85,14 +76,6 @@ export class ConfigurationPatternComponent {
         this.refreshSubject$.next();
       }, error => this.snackbarService.error("Error while deleting configuration pattern."));
   }
-
-  private getPatterns(module: string, configurationGroup?: ConfigurationGroup): Observable<ConfigPattern[]> {
-
-    if (configurationGroup) {
-      return this.moduleService.configurationGroupPatterns(module, configurationGroup.name)
-    }
-
-    return this.moduleService.configurationPatterns(module)
-  }
+  
 
 }
