@@ -52,7 +52,8 @@ export class ModulesComponent {
 
   openModal(data: Module | undefined = null): void {
     this.dialog.open(ModuleModalComponent, {
-      data: data
+      data: data,
+      width: '40vw'
     }).afterClosed()
       .pipe(
         filter(module => !!module),
